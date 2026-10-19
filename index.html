@@ -75,15 +75,14 @@ hr.wash{border:0;height:28px;margin:72px auto;max-width:420px;background:radial-
 .rail a.on span{opacity:0}.rail a:hover span{opacity:1}
 
 /* ---------- hero ---------- */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding-block:clamp(40px,8vh,96px) 24px}
-.hero h1{font-size:clamp(56px,9vw,128px);line-height:.95;letter-spacing:-.03em;font-weight:400}
-.hero h1 .narrow{display:block;font-size:.6em;margin:.22em 0 0 .08em;padding-left:.2em;border-left:2px solid var(--signal);line-height:1.05;letter-spacing:-.01em}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:start;max-width:1180px;margin:0 auto;padding-block:clamp(40px,8vh,96px) 24px}
+.hero h1{font-size:clamp(52px,6.8vw,100px);line-height:.98;letter-spacing:-.025em;font-weight:400}
 .hero .deck{font-size:clamp(19px,1.4vw + 10px,24px);color:var(--ink-2);margin:22px 0 18px;max-width:34ch;line-height:1.45}
 .byline{font-family:var(--ui);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}
 .byline b{color:var(--ink);font-weight:600}
 .anim .hero h1 .w{display:inline-block;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
 @keyframes rise{from{transform:translateY(.3em)}}
-.hero-art{position:relative}
+.hero-art{position:relative;margin-top:clamp(0px,4vw,56px)}
 .hero-art img{width:100%}
 .anim .hero-art img{animation:bloom 2.2s ease-out both}
 @keyframes bloom{from{transform:scale(1.03) rotate(-.4deg)}}
@@ -373,7 +372,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
 <header class="hero" id="top">
   <div>
     <div class="kicker">The Diary of a CEO · Illustrated</div>
-    <h1 style="margin-top:14px" id="headline">You can't remember what you never <span class="narrow">noticed.</span></h1>
+    <h1 style="margin-top:14px" id="headline">You can't remember what you never noticed.</h1>
     <p class="deck">Neuroscientist Dr. Sahar Yousef explains why attention is the gate to memory, who's prying it open, and what actually closes it again.</p>
     <div class="byline"><span>Conversation: <b>Steven Bartlett</b> × <b>Dr. Sahar Yousef</b>, UC Berkeley</span><span>20-minute read · 11 things to try</span><span><a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch the episode ↗</a></span></div>
   </div>
