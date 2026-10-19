@@ -122,6 +122,7 @@ h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:50
 .copyx{font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:6px 10px;border-radius:999px;cursor:pointer}
 .copyx:hover{border-color:var(--ink)}
 .copyx.done{background:var(--ink);color:var(--paper)}
+.who a.img{font:600 12px var(--ui);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:6px 10px;color:var(--ink)}
 
 /* big stat */
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:36px 0}
@@ -354,7 +355,9 @@ h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:50
 .skimtog{display:inline-flex;border:1.5px solid var(--rule);border-radius:999px;overflow:hidden}
 .skimtog button{font-family:var(--ui);font-size:12px;font-weight:700;border:0;background:transparent;color:var(--ink);padding:4px 12px;cursor:pointer}
 .skimtog button.on{background:var(--ink);color:var(--paper)}
-html.skim .part :is(p,.scrolly,.lab-box,.levers,.ladder,figure.figure):not(.sk):not(.sk *):not(.split *):not(.nugget *):not(.part-head *){display:none}
+html.skim .part:not(.open) :is(p,.scrolly,.lab-box,.levers,.ladder,figure.figure):not(.sk):not(.sk *):not(.split *):not(.nugget *):not(.part-head *){display:none}
+.more{display:none;margin:28px auto 0}
+html.skim .part:not(.open)>.more{display:block}
 .closer{max-width:760px;margin:72px auto 0;text-align:center}
 .closer .kicker{color:var(--c)}
 .closer p{font-family:var(--display);font-style:italic;font-size:clamp(28px,2.6vw + 12px,44px);line-height:1.15;margin:8px 0 0;text-wrap:balance}
@@ -401,7 +404,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <p>Steven finished the first round in 31 seconds. In the switching round, after 30 seconds he had only reached the number 8. “I forgot how to count,” he said mid-test, and “where was I?” By his own math, he was working about 60% slower.</p>
   </div>
 </section>
-<footer>Read slowly. Put the phone somewhere else afterwards.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef. Illustrations painted in code with OpenCV.</span></footer>
+<footer>Read slowly. Put the phone somewhere else afterwards.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef. Illustrations painted in code: a Python watercolor script (wash, lift, ink, splatter) built on OpenCV.</span></footer>
 <script>
 
 (()=>{
@@ -429,7 +432,7 @@ const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},se
   function show(){const[a,b]=times,m=Math.max(a,b);$('#st-t1').textContent=a.toFixed(1)+' s';$('#st-t2').textContent=b.toFixed(1)+' s';
     $('#st-result').classList.add('on');requestAnimationFrame(()=>{$('#st-b1').style.width=(100*a/m)+'%';$('#st-b2').style.width=(100*b/m)+'%'});
     const pct=Math.round((b/a-1)*100);
-    const txt=pct>0?`I was ${pct}% slower when I switched between two easy tasks. @StevenBartlett was about 60% on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`:`I didn't slow down at all when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`;$('#st-post').href='https://x.com/intent/post?text='+encodeURIComponent(txt);
+    const txt=pct>0?`I was ${pct}% slower when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`:`I didn't slow down at all when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`;$('#st-post').href='https://x.com/intent/post?text='+encodeURIComponent(txt);
     $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
   const SHARE_ART=new Image();SHARE_ART.src='img/hero_share.webp';
   $('#st-save').addEventListener('click',()=>{const[a,b]=times;if(!a||!b)return;const c=document.createElement('canvas');c.width=1080;c.height=1080;const x=c.getContext('2d');

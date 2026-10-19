@@ -122,6 +122,7 @@ h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:50
 .copyx{font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:6px 10px;border-radius:999px;cursor:pointer}
 .copyx:hover{border-color:var(--ink)}
 .copyx.done{background:var(--ink);color:var(--paper)}
+.who a.img{font:600 12px var(--ui);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:6px 10px;color:var(--ink)}
 
 /* big stat */
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:36px 0}
@@ -354,7 +355,9 @@ h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:50
 .skimtog{display:inline-flex;border:1.5px solid var(--rule);border-radius:999px;overflow:hidden}
 .skimtog button{font-family:var(--ui);font-size:12px;font-weight:700;border:0;background:transparent;color:var(--ink);padding:4px 12px;cursor:pointer}
 .skimtog button.on{background:var(--ink);color:var(--paper)}
-html.skim .part :is(p,.scrolly,.lab-box,.levers,.ladder,figure.figure):not(.sk):not(.sk *):not(.split *):not(.nugget *):not(.part-head *){display:none}
+html.skim .part:not(.open) :is(p,.scrolly,.lab-box,.levers,.ladder,figure.figure):not(.sk):not(.sk *):not(.split *):not(.nugget *):not(.part-head *){display:none}
+.more{display:none;margin:28px auto 0}
+html.skim .part:not(.open)>.more{display:block}
 .closer{max-width:760px;margin:72px auto 0;text-align:center}
 .closer .kicker{color:var(--c)}
 .closer p{font-family:var(--display);font-style:italic;font-size:clamp(28px,2.6vw + 12px,44px);line-height:1.15;margin:8px 0 0;text-wrap:balance}
@@ -379,7 +382,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <div class="kicker">The Diary of a CEO · Illustrated</div>
     <h1 style="margin-top:14px" id="headline">You can't remember what you never noticed.</h1>
     <p class="deck">Attention is the gate to memory. Somebody is holding it open for a living. Neuroscientist Dr. Sahar Yousef on how to shut it.</p>
-    <div class="byline"><span>Conversation: <b>Steven Bartlett</b> (@StevenBartlett) × <b>Dr. Sahar Yousef</b>, UC Berkeley</span><span>8-minute skim · 16-minute read · 10 fixes · 4 things to try</span><span class="skimtog" role="group" aria-label="Reading mode"><button type="button" data-m="skim">Skim</button><button type="button" data-m="full" class="on">Full</button></span><span><a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch the episode ↗</a></span></div>
+    <div class="byline"><span>Conversation: <b>Steven Bartlett</b> (@StevenBartlett) × <b>Dr. Sahar Yousef</b>, UC Berkeley</span><span>8-minute skim · open any chapter for the full 16 · 10 fixes · 4 things to try</span><span class="skimtog" role="group" aria-label="Reading mode"><button type="button" data-m="skim">Skim</button><button type="button" data-m="full" class="on">Full</button></span><span><a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch the episode ↗</a></span></div>
   </div>
   <div class="hero-art"><img class="plate" src="img/hero.webp" alt="Watercolor of a head in profile. A warm glow sits where the mind is and a beam of light shines forward from the eyes, while red dots crowd the edges like notifications." width="1400" height="962"></div>
 </header>
@@ -443,7 +446,6 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="col">
     <p class="lede" style="--c:var(--noise)">Yousef runs the Becoming Superhuman Lab at UC Berkeley. She studies how the brain rewires itself, with the goal of making people sharper. Then she noticed she spends most of her time on something far more basic. “Forget becoming superhuman,” she says. “We just need to become human.”</p>
     <p>The most common complaint she hears is <em>brain fog</em>. One CEO she worked with told her something Yousef never forgot: <strong>“I can hear my own thoughts again.”</strong></p>
-    <p>To understand why that happens, start with how attention and memory are wired together.</p>
   </div>
 
   <div class="scrolly" data-scrolly="attn">
@@ -471,7 +473,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="col">
     <div class="nugget" style="--c:var(--noise)">
       <q>Attention and memory… it's impossible to divorce those concepts from one another. … You cannot remember anything that you do not attend to.</q>
-      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="You can't remember anything you didn't pay attention to. Attention is the gate to memory. Nothing gets remembered that didn't get through. (Dr. Sahar Yousef, UC Berkeley, with @StevenBartlett on The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef</span><a class="img" href="img/carousel/2.png" download>Image ↓</a> <button class="copyx" data-x="You can't remember anything you didn't pay attention to. Attention is the gate to memory. Nothing gets remembered that didn't get through. (Dr. Sahar Yousef, UC Berkeley, with @StevenBartlett on The Diary of a CEO)">Copy for X</button></div>
     </div>
     <h3 class="sub">The executive in the glass box</h3>
     <p>Yousef used to shadow executives for days before redesigning how they worked. One case she still talks about. It was a boss at a Fortune 10 company, working on a board deck in his glass office.</p>
@@ -513,9 +515,10 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     </div>
     <div class="nugget" style="border-left:0;padding-left:0;background:transparent;--c:var(--noise)">
       <q>Every single time you switch your attention, you pay for it.</q>
-      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="Multitasking is a myth. On camera, @StevenBartlett did a 20-item task in 31 seconds. Alternating two tasks, he got less than halfway in the same time. Every switch has a cost. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef</span><a class="img" href="img/hero_share_text.png" download>Image ↓</a> <button class="copyx" data-x="Multitasking is a myth. On camera, @StevenBartlett did a 20-item task in 31 seconds. Alternating two tasks, he got less than halfway in the same time. Every switch has a cost. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
     </div>
   </div>
+  <button class="btn ghost more" type="button">Read the full chapter ↓</button>
 </section>
 
 <!-- ================= PART II ================= -->
@@ -532,7 +535,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       <q>I am better than the default settings. The default settings are not there to help you.</q>
       <div class="who"><span>Dr. Sahar Yousef's mantra</span><button class="copyx" data-x="A neuroscientist's mantra: 'I am better than the default settings.' Your phone, email and apps ship tuned for engagement, not for your productivity. Change them. (Dr. Sahar Yousef with @StevenBartlett on The Diary of a CEO)">Copy for X</button></div>
     </div>
-    <p>Then she compared it to food. The tech industry, she argues, copied the food industry's three-part playbook almost exactly.</p>
+    <p>The tech industry, she argues, copied the food industry's three-part playbook almost exactly.</p>
   </div>
 
   <div class="split">
@@ -576,10 +579,11 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="col">
-    <p>Distraction does not only come to us. We also go looking for it. When work gets hard, the brain tries to solve the discomfort, which is its job. Facing the problem is hard. Escaping is one tap away. The phone has become, in Yousef's words, a very fast, cheap exit.</p>
+    <p>Distraction does not only come to us. We also go looking for it. When work gets hard, the brain tries to solve the discomfort, which is its job. Dealing with it head-on is work, and the phone is right there. The phone has become, in Yousef's words, a very fast, cheap exit.</p>
     <p>Steven brought up a 2014 study (Wilson and colleagues, <em>Science</em>, 2014). People left alone with their thoughts for 15 minutes could press a button to give themselves a mild electric shock, one they had said they would pay to avoid. In the paper's numbers, 67% of the men and 25% of the women pressed it anyway, and one man did it 190 times.</p>
     <p>Yousef's answer is <strong>no shame.</strong> “You have literally hundreds of experts that have designed these tools to be as addictive as they are.” A brain that gets hooked is working as designed.</p>
   </div>
+  <button class="btn ghost more" type="button">Read the full chapter ↓</button>
 </section>
 
 <!-- ================= PART III ================= -->
@@ -600,19 +604,19 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <div class="tight">
       <p class="kicker" style="color:var(--leaf)">1 · Sleep</p>
       <h3 style="font-size:clamp(28px,2.4vw + 12px,40px);margin-bottom:12px">Sleep at least 7 hours</h3>
-      <p>Founders come to Yousef asking for a 1% edge on five hours of sleep a night. She compares it to a car brought in for a performance tune-up while the engine is on fire. Put the fire out first.</p>
+      <p>Founders come to Yousef asking for a 1% edge on five hours of sleep a night. She compares it to a car brought in for a performance tune-up while the engine is on fire. “Let's put the fire out first.”</p>
       <p>Short sleep hurts thinking and emotional control. Until it is fixed, she can't even measure your baseline.</p>
     </div>
   </div>
 
   <div class="col">
     <h3 class="sub" style="color:var(--leaf)">Turn the noise down</h3>
-    <p class="sk"><strong>2. Make your phone gray.</strong> Grayscale is a setting on every phone, usually under Accessibility. Without color, the phone looks dead to you, as she put it, and far less stimulating, especially late at night when willpower is low. In her lab, healthy working professionals who switched to gray for three weeks used their phones about an hour less per day. That is her lab's figure; other studies have found smaller drops, but the direction is the same.</p>
+    <p class="sk"><strong>2. Make your phone gray.</strong> It's under Accessibility on every phone. Without color the phone looks dead to you, as she put it, especially late at night when willpower is low. In her lab, people who went gray for three weeks used their phones about an hour less a day; independent studies found smaller drops.</p>
   </div>
 
 
   <div class="col">
-    <p class="sk"><strong>3. Notifications off, except VIPs.</strong> Steven asked what happens when something urgent comes in. Yousef's answer comes from the post office.</p>
+    <p class="sk"><strong>3. Notifications off, except VIPs.</strong> Steven asked what happens when something urgent comes in. Yousef pointed at the mail.</p>
   </div>
 
   <div class="split rev">
@@ -625,12 +629,12 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
 
 
   <div class="col">
-    <p class="sk"><strong>4. Put the phone out of sight.</strong> Steven locked his in a box at the start of the interview. You don't need a box. Distance does it. Yousef compares it to setting a beer in front of someone trying to get sober. Steven's is Skittles. He doesn't keep them in his pocket, because he'd eat them every time he got bored.</p>
+    <p class="sk"><strong>4. Put the phone out of sight.</strong> Steven locked his in a box at the start of the interview. “You don't necessarily need to get a lockbox,” she says. Out of sight is the point. Yousef compares it to setting a beer in front of someone trying to get sober. Steven's is Skittles. He doesn't keep them in his pocket, because he'd eat them every time he got bored.</p>
     <p class="sk"><strong>5. Choose long form over short form, and people over feeds.</strong> Yousef is not anti-screen. A good film has been shown to build empathy in young people. Too much short form, she argues, leaves people more anxious and less sharp. Watching a movie? Watch the movie, without the phone.</p>
     <p>Both sit on a need that's real enough. If the hunger is for company, have dinner with someone who talks back. Do that, she says, and you'll find you crave the feed less. Steven added Jack Dorsey's old metric for Twitter, <em>regrettable minutes</em>: did that hour leave you better off?</p>
     <div class="nugget" style="border-left:0;padding-left:0;background:transparent;--c:var(--leaf)">
       <q>Put your phone in gray… People spent 1 hour less on their phones every single day. That's 7 hours a week.</q>
-      <div class="who"><span>Dr. Sahar Yousef, on her lab's three-week test</span><button class="copyx" data-x="Easiest focus upgrade I've heard: turn your phone to grayscale. In Dr. Sahar Yousef's Berkeley lab, people who did it for 3 weeks used their phones about 1 hour less a day, in her lab's three-week test. (via @StevenBartlett on The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef, on her lab's three-week test</span><button class="copyx" data-x="Easiest focus upgrade I've heard: turn your phone to grayscale. In Dr. Sahar Yousef's Berkeley lab, people who did it for 3 weeks used their phones about 1 hour less a day. Her lab's number; other studies found less. (via @StevenBartlett on The Diary of a CEO)">Copy for X</button></div>
     </div>
 
     <h3 class="sub" style="color:var(--leaf)">Turn the signal up</h3>
@@ -654,7 +658,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
 
   <div class="col">
     <div class="nugget" style="--c:var(--leaf)">
-      <q>Family, and having a big family. Being a good role model to them. And them having evidence that me being here was net positive to planet.</q>
+      <q>Family, and having a big family. Being a good role model to them. And then them having evidence that me being here was net positive to planet.</q>
       <div class="who"><span>Steven Bartlett, on what he saw at his deathbed</span><button class="copyx" data-x="@StevenBartlett tried the deathbed exercise live: picture yourself at 110. Who's in the room? What do they think of you? His answer: a big family, being a role model, proof his time here was net positive. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
     </div>
     <p class="kicker" style="color:var(--leaf);margin-top:48px">Your MITs</p>
@@ -763,6 +767,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       <p class="ui small muted" style="margin-top:6px">Curves are illustrative shapes drawn from her descriptions, not measured data. Shaded band = best window for focus sprints.</p>
     </div>
   </div>
+  <button class="btn ghost more" type="button">Read the full chapter ↓</button>
 </section>
 
 <!-- ================= STAKES ================= -->
@@ -774,12 +779,12 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
   <div class="figure wide" style="max-width:980px"><figure style="margin:0"><img class="plate" src="img/crowd.webp" alt="Watercolor of rows of grey figures looking down at glowing red phones, with three figures in blue whose heads glow gold." width="1400" height="875"><figcaption class="pcap">The thinking class, as she fears it: a few who can still think, and everyone else looking down.</figcaption></figure></div>
   <div class="col">
-    <p class="lede" style="--c:var(--calm)">Steven held up an email Yousef once received from a tech company. It praised her research on <em>strategic automaticity</em>, the science of making behavior automatic, and asked for help making their product “more sticky.” The attached offer was four times her salary as a public researcher. She says she has been courted more times than she can count, and she doesn't think the people asking are evil. The incentives are simply that strong.</p>
+    <p class="lede" style="--c:var(--calm)">Steven held up an email Yousef once received from a tech company. It praised her research on <em>strategic automaticity</em>, the science of making behavior automatic, and asked for help making their product “more sticky.” The attached offer was four times her salary as a public researcher. She says she has been courted more times than she can count, and she doesn't think the people asking are evil. The incentives are that strong.</p>
     <p>Her fear comes from conversations with leaders in AI. Unless something changes, she warns of a future with a <strong>“thinking class”</strong>: a small group with the education and attention span to think critically, ask questions and generate ideas. Everyone else is expected to do as they're told. A distracted population is easier to control.</p>
     <p>The last century widened the thinking class, especially for women and girls. She believes it is now shrinking again, because of algorithms and AI. AI is taking thinking away from us, she says, because “we're letting it.”</p>
     <div class="nugget" style="--c:var(--calm)">
       <q>Digital dependence is going to be the Everest for our species.</q>
-      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="'Digital dependence is going to be the Everest for our species.' Dr. Sahar Yousef (UC Berkeley), talking with @StevenBartlett, warns of a future with a small 'thinking class' and everyone else told what to do. A distracted population is easier to control. (The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef</span><a class="img" href="img/thinking_share.png" download>Image ↓</a> <button class="copyx" data-x="'Digital dependence is going to be the Everest for our species.' Dr. Sahar Yousef (UC Berkeley), talking with @StevenBartlett, warns of a future with a small 'thinking class' and everyone else told what to do. A distracted population is easier to control. (The Diary of a CEO)">Copy for X</button></div>
     </div>
     <p>Why is it so tempting to hand our thinking over? The brain is wired for shortcuts, because energy used to be scarce. Yousef quotes a line attributed to Daniel Kahneman: thinking is to humans as swimming is to cats. They can do it, but they'd prefer not to.</p>
     <p>Steven shared a story from his own team. He told a colleague that their reasoning was much stronger in person than in the documents they sent, which read like AI. The person knew more real-world context than the model did. The temptation to let a chatbot think for you will only grow, so he treats resisting it as a skill.</p>
@@ -791,11 +796,12 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <div class="tight">
       <p class="kicker" style="color:var(--calm)">Coda · How to get luckier</p>
       <p>The episode ends with a question left by the previous guest: how can the audience become more lucky?</p>
-      <p>Her answer was the same mechanism, run the other way. The mind is a focus machine that looks for evidence of what it already holds. If it's full of noise or a victim story, you notice closed doors. Keep your Everest and today's next step in view and you start spotting chances. That is turning the signal up.</p>
+      <p>Her answer was the same mechanism, run the other way. The mind is a focus machine that looks for evidence of what it already holds. If it's full of noise or a victim story, you notice closed doors. Keep your Everest and today's next step in view and you start spotting chances. She calls that “turning the signal up.”</p>
       <p>Steven started chanting “I'm a lucky person.” She let him finish, then said that was manifestation, which is fine if you're into it, but she wanted to push him further. Did he have a guest he'd never managed to land? Barack Obama, he said. Keep that top of mind, she told him, and one day he'd bump into one of Obama's former chiefs of staff.</p>
       <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,32px);line-height:1.2">“The world is not full of brick walls… those brick walls are doors. They have handles.”</p>
     </div>
   </div>
+  <button class="btn ghost more" type="button">Read the full chapter ↓</button>
 </section>
 
 <!-- ================= CARD ================= -->
@@ -817,7 +823,8 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       <li><b>Do your hardest thinking at your peak hour.</b> Morning person, night owl, or two peaks with a slump in between.</li>
       <li><b>One task at a time.</b> Every switch costs speed and memory. Close the tab before you open the next.</li>
     </ol>
-    <button class="copyx" id="copy-sheet">Copy as an X thread</button>
+    <button class="copyx" id="copy-sheet">Copy as an X thread</button> <a class="copyx" style="text-decoration:none;display:inline-block;margin-left:8px" href="img/carousel/4.png" download>Card image ↓</a>
+    <p style="position:relative;margin:14px 0 0;font-size:15px;opacity:.8">For X, attach the 4-image set: <a href="img/carousel/1.png" download>1</a> · <a href="img/carousel/2.png" download>2</a> · <a href="img/carousel/3.png" download>3</a> · <a href="img/carousel/4.png" download>4</a></p>
   </div>
 
   <div class="col" style="margin-top:60px">
@@ -833,7 +840,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 </section>
 
-<footer>Read slowly. Put the phone somewhere else afterwards.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef. Illustrations painted in code with OpenCV.</span></footer>
+<footer>Read slowly. Put the phone somewhere else afterwards.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef. Illustrations painted in code: a Python watercolor script (wash, lift, ink, splatter) built on OpenCV.</span></footer>
 
 <script>
 (()=>{
@@ -844,7 +851,7 @@ const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},se
 
 if(!RM&&document.visibilityState==='visible')document.documentElement.classList.add('anim');
 /* skim mode */
-(()=>{const btns=$$('.skimtog button');const set=m=>{document.documentElement.classList.toggle('skim',m==='skim');btns.forEach(b=>b.classList.toggle('on',b.dataset.m===m));store.set('mode',m)};btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.m)));if(store.get('mode')==='skim')set('skim')})();
+(()=>{const btns=$$('.skimtog button');const set=m=>{document.documentElement.classList.toggle('skim',m==='skim');btns.forEach(b=>b.classList.toggle('on',b.dataset.m===m));store.set('mode',m)};btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.m)));set(store.get('mode')==='full'?'full':'skim');$$('.more').forEach(b=>b.addEventListener('click',()=>{b.closest('.part').classList.add('open')}))})();
 /* headline word stagger */
 (()=>{const h=$('#headline');if(RM)return;let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim()){f.append(w);return}const s=document.createElement('span');s.className='w';s.style.animationDelay=(i++*70)+'ms';s.textContent=w;f.append(s)});c.replaceWith(f)}else walk(c)})};walk(h)})();
 
@@ -949,7 +956,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
   function show(){const[a,b]=times,m=Math.max(a,b);$('#st-t1').textContent=a.toFixed(1)+' s';$('#st-t2').textContent=b.toFixed(1)+' s';
     $('#st-result').classList.add('on');requestAnimationFrame(()=>{$('#st-b1').style.width=(100*a/m)+'%';$('#st-b2').style.width=(100*b/m)+'%'});
     const pct=Math.round((b/a-1)*100);
-    const txt=pct>0?`I was ${pct}% slower when I switched between two easy tasks. @StevenBartlett was about 60% on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`:`I didn't slow down at all when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`;$('#st-post').href='https://x.com/intent/post?text='+encodeURIComponent(txt);
+    const txt=pct>0?`I was ${pct}% slower when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`:`I didn't slow down at all when I switched between two easy tasks. @StevenBartlett was about 60% slower on The Diary of a CEO with Dr. Sahar Yousef. Try it: https://jptramos.github.io/attention-leak/test.html`;$('#st-post').href='https://x.com/intent/post?text='+encodeURIComponent(txt);
     $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
   const SHARE_ART=new Image();SHARE_ART.src='img/hero_share.webp';
   $('#st-save').addEventListener('click',()=>{const[a,b]=times;if(!a||!b)return;const c=document.createElement('canvas');c.width=1080;c.height=1080;const x=c.getContext('2d');
