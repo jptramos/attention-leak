@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://jptramos.github.io/attention-leak/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Attention Leak">
+<meta property="og:description" content="You can't remember what you never noticed. An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO.">
+<meta property="og:url" content="https://jptramos.github.io/attention-leak/">
+<meta property="og:image" content="https://jptramos.github.io/attention-leak/img/hero_share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Attention Leak">
+<meta name="twitter:description" content="You can't remember what you never noticed. An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO.">
+<meta name="twitter:image" content="https://jptramos.github.io/attention-leak/img/hero_share.png">
+<title>The Attention Leak</title>
+<meta name="description" content="An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO: why attention is the gate to memory, how it gets hijacked, and how to win it back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Libre+Franklin:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<style>
+/* Layout: a single reading column on watercolor paper; scrollytelling chapters break out into a sticky-figure / scrolling-notes grid. */
+:root{
+  --paper:#F3F4EF; --paper-2:#E9EBE3; --card:#FBFBF8; --ink:#1A2030; --ink-2:#3A4152; --muted:#646B7A; --rule:#D5D8CE;
+  --signal:#C98A10; --signal-soft:#F2D58F; --noise:#C23F57; --noise-soft:#F1C2CA; --calm:#34509A; --calm-soft:#C9D5EF; --leaf:#4E7F3E;
+  --display:"Instrument Serif","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --text:"Newsreader","Iowan Old Style",Georgia,serif;
+  --ui:"Libre Franklin","Franklin Gothic Medium","Helvetica Neue",Arial,sans-serif;
+  --plate-blend:multiply; --grain-op:.5; --plate-bg:transparent; --plate-pad:0; --plate-shadow:none;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11151D; --paper-2:#181D27; --card:#1A202B; --ink:#ECEAE2; --ink-2:#C9CBD2; --muted:#9AA1AF; --rule:#2B3240;
+  --signal:#F0B64A; --signal-soft:#5A4518; --noise:#F07186; --noise-soft:#5A2430; --calm:#93ACEC; --calm-soft:#26345A; --leaf:#8CC17A;
+  --plate-blend:normal; --grain-op:.18; --plate-bg:#ECEAE3; --plate-pad:3%; --plate-shadow:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11151D; --paper-2:#181D27; --card:#1A202B; --ink:#ECEAE2; --ink-2:#C9CBD2; --muted:#9AA1AF; --rule:#2B3240;
+  --signal:#F0B64A; --signal-soft:#5A4518; --noise:#F07186; --noise-soft:#5A2430; --calm:#93ACEC; --calm-soft:#26345A; --leaf:#8CC17A;
+  --plate-blend:normal; --grain-op:.18; --plate-bg:#ECEAE3; --plate-pad:3%; --plate-shadow:0 18px 40px -22px rgba(0,0,0,.8); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:clamp(18px,1.1vw + 12px,21px);line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden;
+  font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:var(--grain-op);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .45  0 0 0 0 .4  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+a{color:inherit;text-decoration-color:var(--signal);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:3px}
+img{max-width:100%;height:auto;display:block}
+.plate{mix-blend-mode:var(--plate-blend);background:var(--plate-bg);padding:var(--plate-pad);border-radius:10px;box-shadow:var(--plate-shadow)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.05;margin:0;font-weight:400}
+p{margin:0 0 1em}
+.col{max-width:660px;margin-inline:auto}
+.wide{max-width:1180px;margin-inline:auto}
+.kicker{font-family:var(--text);font-style:italic;font-size:18px;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+.lab-box>.kicker{font-family:var(--ui);font-style:normal;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--signal))}
+.ui{font-family:var(--ui)}
+.small{font-size:.8em}
+.muted{color:var(--muted)}
+hr.wash{border:0;height:28px;margin:72px auto;max-width:420px;background:radial-gradient(ellipse at center,var(--rule) 0,transparent 70%);opacity:.9}
+
+/* ---------- progress + chapter rail ---------- */
+.progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:50;padding-top:env(safe-area-inset-top,0px);pointer-events:none}
+.progress i{display:block;height:3px;width:0;background:linear-gradient(90deg,var(--calm),var(--signal))}
+.rail{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:14px}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;text-decoration:none;font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rail a span{opacity:0;transform:translateX(6px);transition:.25s}
+.rail a:hover span,.rail a.on span{opacity:1;transform:none}
+.rail a b{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted);transition:.25s}
+.rail a.on b{background:var(--signal);border-color:var(--signal);transform:scale(1.3)}
+@media (max-width:1360px){.rail{display:none}}
+.rail a.on span{opacity:0}.rail a:hover span{opacity:1}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding-block:clamp(40px,8vh,96px) 24px}
+.hero h1{font-size:clamp(56px,9vw,128px);line-height:.95;letter-spacing:-.03em;font-weight:400}
+.hero h1 .narrow{display:block;font-size:.6em;margin:.22em 0 0 .08em;padding-left:.2em;border-left:2px solid var(--signal);line-height:1.05;letter-spacing:-.01em}
+.hero .deck{font-size:clamp(19px,1.4vw + 10px,24px);color:var(--ink-2);margin:22px 0 18px;max-width:34ch;line-height:1.45}
+.byline{font-family:var(--ui);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}
+.byline b{color:var(--ink);font-weight:600}
+.anim .hero h1 .w{display:inline-block;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(.3em)}}
+.hero-art{position:relative}
+.hero-art img{width:100%}
+.anim .hero-art img{animation:bloom 2.2s ease-out both}
+@keyframes bloom{from{transform:scale(1.03) rotate(-.4deg)}}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:8px}.hero-art{order:-1;max-width:520px;margin:0 auto}}
+
+/* ---------- answer-first box (pyramid) ---------- */
+.answer{max-width:1000px;margin:24px auto 0;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:clamp(22px,3vw,38px)}
+.answer .gov{font-family:var(--display);font-size:clamp(24px,2.2vw + 10px,34px);line-height:1.2;margin:8px 0 22px;max-width:32ch}
+.answer .gov b{font-weight:500;background:linear-gradient(transparent 62%,var(--signal-soft) 0)}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pillar{display:flex;flex-direction:column;gap:6px;text-decoration:none;padding:16px 0 4px;border-top:1px solid var(--rule)}
+.pillar:hover h3{text-decoration:underline;text-decoration-color:var(--c);text-underline-offset:5px}
+.pillar .n{display:flex;align-items:center;gap:10px;font-family:var(--display);font-style:italic;font-size:17px;color:var(--c)}
+.pillar .n::before{content:"";width:26px;height:22px;flex:none;border-radius:48% 52% 45% 55%/55% 42% 58% 45%;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--c) 35%,transparent),var(--c) 75%,color-mix(in srgb,var(--c) 70%,#000) 100%);opacity:.85}
+.pillar h3{font-size:22px}
+.pillar p{font-size:16px;line-height:1.45;color:var(--ink-2);margin:0}
+@media (max-width:760px){.pillars{grid-template-columns:1fr}}
+
+/* ---------- parts ---------- */
+.part{padding-top:clamp(70px,12vh,140px)}
+.part-head{position:relative;text-align:left;max-width:1000px;margin:0 auto 44px;padding-left:clamp(0px,8vw,110px)}
+.part-head .num{position:absolute;left:0;top:-.42em;font-family:var(--display);font-size:clamp(90px,14vw,200px);line-height:1;color:var(--c);opacity:.35;pointer-events:none}
+.part-head h2{position:relative;font-size:clamp(40px,5.5vw,76px);letter-spacing:-.02em;margin:0 0 12px}
+.part-head p{position:relative;font-size:20px;color:var(--ink-2);max-width:44ch;margin:0}
+@media (max-width:900px){.part-head{padding-left:0}.part-head .num{display:none}}
+.lede::before{content:"";display:block;width:48px;height:2px;background:var(--c,var(--signal));margin-bottom:18px}
+h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:500}
+.figure{margin:36px auto}
+.pcap{font-family:var(--ui);font-size:13px;color:var(--muted);margin-top:8px;font-style:italic}
+.figure figcaption{font-family:var(--ui);font-size:13px;color:var(--muted);margin-top:8px;max-width:660px;margin-inline:auto}
+
+/* nuggets: shareable callouts */
+.nugget{position:relative;margin:36px 0;padding:22px 24px 18px;border-left:4px solid var(--c,var(--signal));background:var(--card);border-radius:0 6px 6px 0}
+.nugget q{display:block;font-family:var(--display);font-size:clamp(22px,1.6vw + 12px,30px);line-height:1.25;quotes:"\201C" "\201D"}
+.nugget .who{font-family:var(--ui);font-size:13px;color:var(--muted);margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.copyx{font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:6px 10px;border-radius:999px;cursor:pointer}
+.copyx:hover{border-color:var(--ink)}
+.copyx.done{background:var(--ink);color:var(--paper)}
+
+/* big stat */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:36px 0}
+.stat{border-top:1px solid var(--rule);padding-top:12px}
+.stat b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(40px,4vw,60px);line-height:1;color:var(--c,var(--ink));font-variant-numeric:tabular-nums}
+.stat span{font-family:var(--ui);font-size:13.5px;color:var(--ink-2);line-height:1.4;display:block;margin-top:6px}
+@media (max-width:640px){.stats{grid-template-columns:1fr}}
+
+/* ---------- scrollytelling ---------- */
+.scrolly{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);max-width:1180px;margin:40px auto;position:relative}
+.scrolly .fig{position:sticky;top:calc(env(safe-area-inset-top,0px) + 7vh);height:86vh;display:flex;align-items:center;justify-content:center}
+.scrolly .steps{padding-block:20vh 30vh}
+.step{min-height:78vh;display:flex;align-items:center}
+.step .card{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px 22px;box-shadow:0 10px 30px -18px rgba(20,25,40,.35);opacity:.38;transition:opacity .4s, transform .4s;transform:translateY(8px)}
+.step.on .card{opacity:1;transform:none}
+.step .card p:last-child{margin:0}
+.step .card .kicker{display:block;margin-bottom:6px}
+@media (max-width:900px){
+  .scrolly{grid-template-columns:1fr}
+  .scrolly .fig{top:calc(env(safe-area-inset-top,0px));height:58vh;z-index:0;background:var(--paper)}
+  .scrolly .steps{position:relative;z-index:1;padding-block:30vh 20vh;margin-top:-20vh}
+  .step{min-height:90vh;align-items:flex-end}
+  .step .card{opacity:1;font-size:17px}
+}
+
+/* attention sim */
+.sim{position:relative;width:100%;height:100%;max-height:640px}
+.sim canvas{width:100%;height:100%;display:block}
+.sim .lab{position:absolute;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .3s,opacity .3s}
+.sim .lab.hot{color:var(--ink)}
+.sim .readout{position:absolute;left:0;right:0;bottom:4%;text-align:center;font-family:var(--ui);font-size:14px;color:var(--ink-2)}
+.sim .readout b{font-variant-numeric:tabular-nums;color:var(--signal);font-size:18px}
+
+/* glass box */
+.gb{position:relative;width:100%}
+.gb .badge{position:absolute;transform:translate(-50%,-50%) scale(.6);opacity:0;font-family:var(--ui);font-size:clamp(10px,1vw,13px);font-weight:700;background:var(--noise);color:#fff;padding:4px 9px;border-radius:999px;white-space:nowrap;transition:.35s cubic-bezier(.3,1.6,.5,1);box-shadow:0 4px 14px -4px rgba(194,63,87,.6)}
+.gb .badge.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.gb.done .badge.on{opacity:.45}
+@media (max-width:600px){.gb .badge.m-hide{display:none}}
+.gb .badge.on.pulse{animation:ping 1.6s ease-out infinite}
+@keyframes ping{50%{box-shadow:0 0 0 10px rgba(194,63,87,0)}}
+.gb .meter{margin:14px auto 0;max-width:520px;font-family:var(--ui);font-size:12.5px;color:var(--muted)}
+.gb .meter .bar{height:8px;border-radius:99px;background:var(--paper-2);overflow:hidden;margin-top:6px}
+.gb .meter .bar i{display:block;height:100%;width:100%;background:var(--calm);border-radius:99px;transition:width .8s cubic-bezier(.3,.7,.2,1),background .5s}
+.gb .big{position:relative;display:flex;flex-direction:row;gap:14px;margin-top:6px;min-height:64px;align-items:center;justify-content:center;opacity:0;transition:opacity .5s;pointer-events:none;text-align:center}
+.gb .big.on{opacity:1}
+.gb .big b{font-family:var(--display);font-size:clamp(36px,4vw,56px);font-weight:400;color:var(--noise);line-height:1}
+.gb .big span{font-family:var(--ui);font-size:14px;font-weight:600;color:var(--ink-2);text-align:left;max-width:16ch;line-height:1.3}
+
+/* ---------- interactive shells ---------- */
+.lab-box{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:clamp(18px,3vw,32px);margin:40px auto;max-width:900px}
+.lab-box .kicker{color:var(--c,var(--signal))}
+.lab-box h3{font-size:clamp(26px,2vw + 12px,36px);margin:6px 0 10px}
+.lab-box .intro{color:var(--ink-2);max-width:60ch}
+.btn{font-family:var(--ui);font-weight:700;font-size:15px;border:0;border-radius:999px;padding:12px 20px;cursor:pointer;background:var(--ink);color:var(--paper);transition:transform .15s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* switch test */
+.st-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:24px;align-items:start;margin-top:18px}
+@media (max-width:720px){.st-wrap{grid-template-columns:1fr}}
+.st-board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.st-tile{aspect-ratio:1;max-width:100%;border:1.5px solid var(--rule);background:var(--paper);border-radius:8px;font-family:var(--display);font-size:clamp(20px,3vw,30px);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s}
+.st-tile.num{font-family:var(--ui);font-weight:600}
+.st-tile:active{transform:scale(.95)}
+.st-tile.hit{background:var(--calm-soft);border-color:var(--calm);color:var(--muted)}
+.st-tile.miss{animation:shake .3s;background:var(--noise-soft)}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.st-board.locked .st-tile{cursor:default;opacity:.55}
+.st-side{font-family:var(--ui);font-size:14px}
+.st-task{font-size:15px;padding:12px 14px;border-radius:6px;background:var(--paper);border:1px solid var(--rule);margin-bottom:12px;line-height:1.45}
+.st-task b{font-family:var(--display);font-size:18px;display:block;margin-bottom:2px}
+.st-clock{font-family:var(--display);font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.st-trail{font-family:var(--ui);font-size:13px;color:var(--muted);min-height:1.5em;margin-top:8px;word-break:break-all}
+.st-result{margin-top:22px;display:none;border:1.5px solid var(--ink);border-radius:10px;padding:18px 20px;background:var(--paper)}
+.st-result .brand{font-family:var(--ui);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.st-result.on{display:block}
+.st-bars{display:grid;gap:10px;margin:14px 0}
+.st-bar{display:grid;grid-template-columns:110px minmax(0,1fr) 64px;gap:10px;align-items:center;font-family:var(--ui);font-size:13.5px}
+.st-bar .t{height:22px;background:var(--paper-2);border-radius:4px;overflow:hidden}
+.st-bar .t i{display:block;height:100%;width:0;border-radius:4px;transition:width 1s cubic-bezier(.3,.7,.2,1)}
+.st-bar b{font-variant-numeric:tabular-nums;text-align:right}
+
+/* playbook table */
+.levers{display:grid;gap:0;margin:36px 0;border-top:1px solid var(--rule)}
+.lever{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:18px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:start;font-size:16.5px;line-height:1.45}
+.lever.head{font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px 0}
+.lever .name{font-family:var(--display);font-size:22px;line-height:1.15}
+.lever .name small{display:block;font-family:var(--ui);font-size:12px;letter-spacing:.06em;color:var(--noise);font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.lever .fix{color:var(--leaf)}
+.lever .fix b{font-family:var(--ui);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+@media (max-width:760px){.lever{grid-template-columns:1fr;gap:6px}.lever.head{display:none}.lever>div[data-l]::before{content:attr(data-l);display:block;font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}}
+
+/* rigged feed */
+.feed-wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:start;margin-top:18px}
+@media (max-width:720px){.feed-wrap{grid-template-columns:1fr}}
+.phone{position:relative;width:100%;max-width:260px;margin:0 auto;aspect-ratio:9/17;border-radius:36px;background:var(--ink);padding:12px;box-shadow:0 20px 40px -24px rgba(0,0,0,.6)}
+.phone .screen{position:relative;height:100%;border-radius:26px;overflow:hidden;background:var(--paper)}
+.post{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;transition:transform .45s cubic-bezier(.3,.7,.2,1);color:#fff}
+.post .tag{font-family:var(--ui);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.post h4{font-family:var(--display);font-size:24px;line-height:1.15;margin:6px 0 0;font-weight:500}
+.post.jack{box-shadow:inset 0 0 0 4px var(--signal);animation:jackpop .9s ease-out .4s}
+.post.jack::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle,#fff6 2px,transparent 3px) 0 0/22px 22px,repeating-conic-gradient(from 0deg,#fff3 0 8deg,transparent 8deg 22deg);animation:spin 6s linear infinite;pointer-events:none;mix-blend-mode:overlay}
+.post .bang{position:absolute;top:22%;left:0;right:0;text-align:center;font-family:var(--display);font-style:italic;font-size:64px;line-height:1;color:#fff;text-shadow:0 4px 18px rgba(120,60,0,.5);animation:bang .6s cubic-bezier(.3,1.8,.5,1) .45s both}
+.post:not(.jack){filter:saturate(.35)}
+@keyframes jackpop{0%,100%{filter:brightness(1)}25%{filter:brightness(1.7) saturate(1.3)}}
+@keyframes bang{from{transform:scale(.2) rotate(-12deg);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.feed-side .meterline{font-family:var(--ui);font-size:13px;color:var(--muted);margin:14px 0 6px;display:flex;justify-content:space-between}
+.boredom{height:12px;border-radius:99px;background:var(--paper-2);position:relative;overflow:visible}
+.boredom i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--calm),var(--noise));transition:width .4s}
+.boredom .thr{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink);left:78%}
+.boredom .thr::after{content:"you leave";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--ui);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.spark{display:flex;align-items:flex-end;gap:3px;height:90px;margin-top:22px;border-bottom:1px solid var(--rule)}
+.spark i{flex:1;max-width:18px;background:var(--calm-soft);border-radius:2px 2px 0 0;transition:height .4s}
+.spark i.j{background:var(--signal)}
+.feed-note{margin-top:16px;font-size:17px;min-height:3em}
+
+/* grayscale phone */
+.gs-wrap{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:32px;align-items:center;margin-top:18px}
+@media (max-width:720px){.gs-wrap{grid-template-columns:1fr}}
+.home{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:34px 14px;height:100%;align-content:start;transition:filter .9s ease}
+.home.gray{filter:grayscale(1) contrast(.95)}
+.home i{aspect-ratio:1;border-radius:22%;display:block;box-shadow:inset 0 -6px 10px rgba(0,0,0,.15)}
+.home i.dot{position:relative}
+.home i.dot::after{content:"";position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:#ff3b30;border:2px solid var(--paper)}
+.toggle{display:flex;align-items:center;gap:12px;font-family:var(--ui);font-weight:600;font-size:15px;cursor:pointer;user-select:none}
+.toggle input{appearance:none;width:52px;height:30px;border-radius:99px;background:var(--rule);position:relative;cursor:pointer;transition:background .25s;margin:0}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.toggle input:checked{background:var(--leaf)}
+.toggle input:checked::after{transform:translateX(22px)}
+.calc{margin-top:24px}
+.calc input[type=range]{width:100%;accent-color:var(--signal)}
+.calc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.calc-out div{border-top:1px solid var(--rule);padding-top:8px;font-family:var(--ui);font-size:12.5px;color:var(--muted)}
+.calc-out b{display:block;font-family:var(--display);font-size:clamp(28px,3vw,40px);color:var(--ink);font-weight:400;font-variant-numeric:tabular-nums;line-height:1.1}
+
+/* VIP sorter */
+.vip-list{display:grid;gap:10px;margin-top:18px}
+.vip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);transition:background .3s,border-color .3s}
+.vip .from{font-family:var(--ui);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.vip .msg{font-size:17px;line-height:1.35}
+.vip .why{font-family:var(--ui);font-size:12.5px;color:var(--ink-2);margin-top:4px;display:none}
+.vip.done .why{display:block}
+.vip.done.knock{border-color:var(--noise);background:color-mix(in srgb,var(--noise-soft) 45%,var(--paper))}
+.vip.done.box{border-color:var(--calm);background:color-mix(in srgb,var(--calm-soft) 45%,var(--paper))}
+.vip .acts{display:flex;gap:6px}
+.vip .acts button{font-family:var(--ui);font-size:12.5px;font-weight:700;border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:7px 11px;border-radius:999px;cursor:pointer}
+.vip .acts button.sel{background:var(--ink);color:var(--paper)}
+.vip-sum{margin-top:16px;font-family:var(--ui);font-size:15px;min-height:1.4em}
+@media (max-width:560px){.vip{grid-template-columns:1fr}}
+
+/* MIT picker */
+.mit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (max-width:560px){.mit-grid{grid-template-columns:1fr}}
+.mit{display:flex;justify-content:space-between;gap:10px;align-items:center;text-align:left;font-family:var(--text);font-size:17px;padding:12px 14px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:8px;cursor:pointer;transition:.2s}
+.mit small{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.mit.on{border-color:var(--signal);background:color-mix(in srgb,var(--signal-soft) 55%,var(--paper))}
+.mit.no{animation:shake .3s}
+.mit-note{font-family:var(--ui);font-size:14.5px;margin-top:14px;min-height:1.4em;color:var(--ink-2)}
+
+/* everest */
+.everest textarea{width:100%;min-height:110px;font-family:var(--display);font-size:20px;line-height:1.4;padding:14px;border:1.5px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);resize:vertical}
+.everest textarea:focus{outline:none;border-color:var(--signal)}
+
+/* sprint */
+.sprint-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:22px 0;counter-reset:s}
+.sstep{padding:14px 12px;border-radius:8px;background:var(--paper);border:1px solid var(--rule);cursor:pointer;text-align:left;font:inherit;color:var(--ink);transition:.2s}
+.sstep .k{font-family:var(--ui);font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--signal);text-transform:uppercase}
+.sstep b{display:block;font-family:var(--display);font-weight:500;font-size:19px;line-height:1.15;margin-top:4px}
+.sstep.on{border-color:var(--ink);background:var(--card);box-shadow:0 8px 20px -14px rgba(0,0,0,.4)}
+@media (max-width:760px){.sprint-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sdetail{min-height:120px;font-size:17.5px;color:var(--ink-2);border-left:3px solid var(--signal);padding:4px 0 4px 16px;margin-bottom:24px}
+.timer{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:28px;align-items:center;padding-top:22px;border-top:1px solid var(--rule)}
+@media (max-width:640px){.timer{grid-template-columns:1fr;justify-items:center}}
+.ring{position:relative;width:200px;height:200px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);font-size:44px;font-variant-numeric:tabular-nums}
+.ring .t small{font-family:var(--ui);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.exec{display:grid;gap:8px;margin:10px 0 14px}
+.exec label{display:grid;grid-template-columns:minmax(0,1fr) 74px;gap:8px}
+.exec input{font-family:var(--text);font-size:16px;padding:9px 10px;border:1.5px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);min-width:0}
+.exec input:focus{outline:none;border-color:var(--signal)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--ui);font-size:13px;font-weight:700;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip.on{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+
+/* break ladder */
+.ladder{display:grid;gap:12px;margin:26px 0}
+.rung{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:center}
+.rung .r{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;color:#fff;background:var(--c)}
+.rung .l{font-size:17px;line-height:1.35}
+.rung .l b{font-family:var(--display);font-weight:500;font-size:21px;display:block}
+
+/* chronotype */
+.quiz{display:grid;gap:16px;margin-top:16px}
+.q{border:0;padding:0;margin:0}
+.q legend{font-family:var(--ui);font-weight:700;font-size:14.5px;margin-bottom:8px;padding:0}
+.q .opts{display:flex;flex-wrap:wrap;gap:8px}
+.q label{cursor:pointer}
+.q input{position:absolute;opacity:0;pointer-events:none}
+.q span{display:inline-block;font-family:var(--ui);font-size:14px;padding:8px 13px;border:1.5px solid var(--rule);border-radius:999px;background:var(--paper);transition:.15s}
+.q input:checked+span{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.q input:focus-visible+span{outline:3px solid var(--signal);outline-offset:2px}
+.chrono-out{margin-top:22px}
+.chrono-out h4{font-family:var(--display);font-size:28px;font-weight:500;margin:0 0 4px}
+.chart-box{overflow-x:auto;margin-top:12px}
+.chart-box svg{min-width:520px;width:100%;height:auto;display:block}
+.chart-box text{font-family:var(--ui);font-size:11px;fill:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--ui);font-size:13px;margin-top:8px}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;background:var(--c);vertical-align:middle;margin-right:6px}
+
+/* cheat sheet */
+.sheet{background:var(--ink);color:var(--paper);border-radius:10px;padding:clamp(22px,4vw,44px);margin:40px auto;max-width:900px;position:relative;overflow:hidden}
+.sheet::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--signal) 0,transparent 65%);opacity:.35}
+.sheet h3{font-size:clamp(28px,3vw,42px);font-weight:400;margin-bottom:18px;position:relative}
+.sheet ol{margin:0;padding-left:1.4em;display:grid;gap:10px;position:relative;font-size:18px;line-height:1.4}
+.sheet ol li::marker{font-family:var(--ui);font-weight:800;color:var(--signal)}
+.sheet ol b{font-weight:600}
+.sheet .copyx{background:transparent;color:var(--paper);border-color:color-mix(in srgb,var(--paper) 40%,transparent);margin-top:22px;position:relative}
+.sheet .copyx.done{background:var(--paper);color:var(--ink)}
+.notes{font-family:var(--ui);font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+.notes li{margin-bottom:8px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;max-width:1100px;margin:40px auto}
+.split.rev>:first-child{order:2}
+@media (max-width:820px){.split{grid-template-columns:1fr}.split.rev>:first-child{order:0}}
+.tight p:last-child{margin:0}
+.closer{max-width:760px;margin:72px auto 0;text-align:center}
+.closer .kicker{color:var(--c)}
+.closer p{font-family:var(--display);font-style:italic;font-size:clamp(28px,2.6vw + 12px,44px);line-height:1.15;margin:8px 0 0;text-wrap:balance}
+footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size:13px;color:var(--muted)}
+</style>
+
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i id="prog"></i></div>
+<nav class="rail" aria-label="Chapters">
+  <a href="#top"><span>Start</span><b></b></a>
+  <a href="#problem"><span>The problem</span><b></b></a>
+  <a href="#cause"><span>The cause</span><b></b></a>
+  <a href="#fix"><span>The fix</span><b></b></a>
+  <a href="#stakes"><span>The stakes</span><b></b></a>
+  <a href="#card"><span>One card</span><b></b></a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div>
+    <div class="kicker">The Diary of a CEO · Illustrated</div>
+    <h1 style="margin-top:14px" id="headline">You can't remember what you never <span class="narrow">noticed.</span></h1>
+    <p class="deck">Neuroscientist Dr. Sahar Yousef explains why attention is the gate to memory, who's prying it open, and what actually closes it again.</p>
+    <div class="byline"><span>Conversation: <b>Steven Bartlett</b> × <b>Dr. Sahar Yousef</b>, UC Berkeley</span><span>20-minute read · 11 things to try</span><span><a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch the episode ↗</a></span></div>
+  </div>
+  <div class="hero-art"><img class="plate" src="img/hero.webp" alt="Watercolor of a head in profile. A warm glow sits where the mind is and a beam of light shines forward from the eyes, while red dots crowd the edges like notifications." width="1400" height="962"></div>
+</header>
+
+<section class="answer" aria-label="The short version">
+  <div class="kicker">The 30-second version</div>
+  <p class="gov">Attention and memory are one system: <b>if it never gets your attention, it never becomes a memory.</b> Your attention is being engineered away, and the same neuroscience works in reverse.</p>
+  <div class="pillars">
+    <a class="pillar" href="#problem" style="--c:var(--noise)"><span class="n">I. The problem</span><h3>Your attention is leaking</h3><p>Knowledge workers last about 47 seconds on one screen. Switching between tasks made Steven about 60% slower.</p></a>
+    <a class="pillar" href="#cause" style="--c:var(--signal)"><span class="n">II. The cause</span><h3>The playbook came from junk food</h3><p>More stimulation, less friction, less satisfaction. Tech copied the recipe that got us hooked on sugar.</p></a>
+    <a class="pillar" href="#fix" style="--c:var(--leaf)"><span class="n">III. The fix</span><h3>Run it in reverse</h3><p>Sleep first. Then turn the noise down and the signal up: grayscale, VIP alerts, focus sprints, real breaks.</p></a>
+  </div>
+  <p class="ui" style="margin:18px 0 0;font-size:14px"><a href="#card">In a hurry? Jump to the one-card version ↓</a></p>
+</section>
+
+<!-- ================= PART I ================= -->
+<section class="part" id="problem" style="--c:var(--noise)">
+  <div class="part-head">
+    <div class="num" aria-hidden="true">I</div>
+    <h2>Your attention is leaking</h2>
+    <p>Before any tips, one law of biology that changes how you see every notification.</p>
+  </div>
+
+  <div class="col">
+    <p class="lede" style="--c:var(--noise)">Yousef runs the Becoming Superhuman Lab at UC Berkeley. She studies how the brain rewires itself, with the goal of making people sharper. Then she noticed she spends most of her time on something far more basic. “Forget becoming superhuman,” she says. “We just need to become human.”</p>
+    <p>The most common complaint she hears is <em>brain fog</em>. One CEO, after cleaning up her digital life, told her something Yousef never forgot: <strong>“I can hear my own thoughts again.”</strong></p>
+    <p>To understand why that happens, start with how attention and memory are wired together.</p>
+  </div>
+
+  <div class="scrolly" data-scrolly="attn">
+    <div class="fig">
+      <div class="sim" id="sim">
+        <canvas id="simc" aria-label="Animated diagram: dots representing everything around you flow toward a narrow gate labeled attention. Only dots that pass the gate collect in a jar labeled memory. Red distractions then block the gate and the jar empties." role="img"></canvas>
+        <div class="lab" id="lab-world" style="left:6%;top:6%">The world</div>
+        <div class="lab" id="lab-gate" style="left:50%;top:6%;transform:translateX(-50%)">Attention</div>
+        <div class="lab" id="lab-mem" style="right:6%;top:6%">Memory</div>
+        <div class="readout" id="sim-read">In memory now: <b id="sim-rate">0</b> · old items fade unless new ones get through</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="card"><span class="kicker">The input</span><p>Every second, your senses take in far more than you can use. About a third of the cortex is devoted to looking and listening. The brain evolved to watch for predators, so it notices anything that moves or makes noise.</p></div></div>
+      <div class="step"><div class="card"><span class="kicker">The gate</span><p>Attention is a narrow gate. Yousef calls the brain a <strong>monotasking machine</strong>: it can truly focus on one thing at a time.</p></div></div>
+      <div class="step"><div class="card"><span class="kicker">The law</span><p><strong>“You cannot remember anything that you do not attend to.”</strong> Only what passes the gate can become memory. And another word for memory is <em>learning</em>.</p></div></div>
+      <div class="step"><div class="card"><span class="kicker">The leak</span><p>Now add pings, buzzes, badges and open tabs. They crowd the gate. Less gets through, so less is remembered. In Yousef's words, any distraction that cuts your focus is also cutting your memory.</p></div></div>
+    </div>
+  </div>
+
+  <figure class="figure" style="max-width:900px">
+    <img class="plate" src="img/aperture.webp" alt="Watercolor diagram: a field of colored dots on the left, a narrow gap between two dark bars in the middle with red blots wedged into it, and a jar on the right holding only a few gold dots." width="1400" height="875">
+    <figcaption>Her phrase is the “aperture of attention.” Only what passes the aperture becomes memory. The red is what's crowding it.</figcaption>
+  </figure>
+  <div class="col">
+    <div class="nugget" style="--c:var(--noise)">
+      <q>Attention and memory are impossible to divorce. You cannot remember anything that you do not attend to.</q>
+      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="You can't remember anything you didn't pay attention to. Attention isn't a productivity hack. It's the gate to memory and learning. (Dr. Sahar Yousef, UC Berkeley, on The Diary of a CEO)">Copy for X</button></div>
+    </div>
+    <h3 class="sub">The executive in the glass box</h3>
+    <p>Yousef used to shadow executives for days before redesigning how they worked. One case she still talks about. It was a boss at a Fortune 10 company, working on a board deck in his glass office.</p>
+  </div>
+
+  <div class="scrolly" data-scrolly="glass">
+    <div class="fig">
+      <div class="gb" id="gb">
+        <img class="plate" src="img/glassbox.webp" alt="Watercolor of a man at a desk inside a glass office with two monitors and two phones, colleagues walking past outside, red dots floating around him." width="1400" height="918">
+        <span class="badge" style="left:64%;top:41%" data-s="1">Inbox open</span>
+        <span class="badge" style="left:36%;top:66%" data-s="1">Work phone</span>
+        <span class="badge" style="left:64%;top:66%" data-s="1">Personal phone</span>
+        <span class="badge" style="left:50%;top:30%" data-s="1">Watch buzz</span>
+        <span class="badge m-hide" style="left:8%;top:42%" data-s="1">Walking past</span>
+        <span class="badge m-hide" style="left:92%;top:42%" data-s="1">Walking past</span>
+        <span class="badge m-hide" style="left:30%;top:18%" data-s="1">Chief of staff: “Don't forget…”</span>
+        <div class="big" id="gb-big"><b>~30 sec</b><span>longest stretch of focus Yousef saw</span></div>
+        <div class="meter"><div class="row" style="justify-content:space-between"><span>Time until the next interruption</span><span id="gb-lab">plenty</span></div><div class="bar"><i id="gb-bar"></i></div></div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="card"><span class="kicker">The setup</span><p>A very smart person who controls billions of dollars, assembling data for a big board decision. He sits in a glass box in the middle of a busy floor.</p></div></div>
+      <div class="step"><div class="card"><span class="kicker">The pile-on</span><p>His inbox is open on a second monitor. Two phones, work and personal, lie face up by the keyboard. His Apple Watch buzzes along with them. Colleagues walk past the glass, and his chief of staff pops in with a reminder.</p></div></div>
+      <div class="step"><div class="card"><span class="kicker">The result</span><p>“He probably got 30 seconds.” He was not unusual. Research by Gloria Mark puts the average knowledge worker at <strong>47 seconds</strong> on one screen before switching.</p></div></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Yousef asks you to imagine you were handed a billion dollars to cure cancer and could hire the best minds alive. Would you give them smartwatches, Slack and a calendar full of calls? Or would you protect their best thinking?</p>
+    <p>She calls the work <strong>digital hygiene</strong>. The first job is to clear away what is in the way.</p>
+    <h3 class="sub">Multitasking is a myth. Test it yourself.</h3>
+    <p>Steven called himself a “very proud context switcher.” So she tested him on camera. He wrote “I'm a great multitasker” and the numbers 1 to 20, first one line at a time, then alternating: letter, number, letter, number. Here is a tap version you can do in a minute.</p>
+  </div>
+
+  <div class="lab-box" id="switch" style="--c:var(--noise);border:0;background:transparent;padding-inline:0">
+    <div class="kicker">Try it · Switch cost</div>
+    <h3>Two rounds, same 20 tiles</h3>
+    <p class="intro">Round 1: tap the letters A to J, then the numbers 1 to 10. Round 2: alternate, A 1 B 2 C 3 and so on. Tap as fast as you can. The clock starts on your first tap.</p>
+    <div class="st-wrap">
+      <div class="st-board locked" id="st-board" aria-live="off"></div>
+      <div class="st-side">
+        <div class="st-task" id="st-task"><b>Ready?</b>Press start for round 1.</div>
+        <div class="st-clock" id="st-clock">0.0<span class="muted" style="font-size:20px"> s</span></div>
+        <div class="st-trail" id="st-trail" aria-live="polite"></div>
+        <div class="row" style="margin-top:14px"><button class="btn" id="st-go">Start round 1</button></div>
+      </div>
+    </div>
+    <div class="st-result" id="st-result" aria-live="polite">
+      <div class="brand"><span>My switch cost</span><span>The Attention Leak · after Dr. Sahar Yousef on DOAC</span></div>
+      <div class="st-bars">
+        <div class="st-bar"><span>One at a time</span><div class="t"><i id="st-b1" style="background:var(--calm)"></i></div><b id="st-t1">–</b></div>
+        <div class="st-bar"><span>Switching</span><div class="t"><i id="st-b2" style="background:var(--noise)"></i></div><b id="st-t2">–</b></div>
+      </div>
+      <p id="st-verdict" style="font-size:19px"></p>
+      <p class="ui small muted" style="margin:0">Steven on the show: 31 s focused; switching, he reached only 8 in 30 s. Screenshot this card to share your result.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Steven finished the first round in 31 seconds. In the switching round, after 30 seconds he had only reached the number 8. “I forgot to count,” he said mid-test, and “where was I?” By his own math, he was working about 60% slower.</p>
+    <p>That “where was I?” feeling has a name. Yousef calls it <strong>attentional baggage</strong>: you carry the last task into the next one, so you're never fully in either. Her fix: finish the thing, close the tab, then start the next one.</p>
+    <div class="stats">
+      <div class="stat" style="--c:var(--noise)"><b>47 s</b><span>average time on one screen before switching (Gloria Mark)</span></div>
+      <div class="stat" style="--c:var(--noise)"><b>~60%</b><span>slower when Steven alternated two easy tasks</span></div>
+      <div class="stat" style="--c:var(--noise)"><b>2+ hrs</b><span>per day lost bouncing between screens, by the estimate Yousef cites</span></div>
+    </div>
+    <div class="nugget" style="--c:var(--noise)">
+      <q>Every single time you switch your attention, you pay for it.</q>
+      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="Multitasking is a myth. On camera, Steven Bartlett did a simple task in 31 seconds. Alternating two tasks, he got less than halfway in the same time. Every switch has a cost. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
+    </div>
+  </div>
+  <div class="closer"><p>Every switch costs twice, once in speed and again in memory.</p></div>
+</section>
+
+<!-- ================= PART II ================= -->
+<section class="part" id="cause" style="--c:var(--signal)">
+  <div class="part-head">
+    <div class="num" aria-hidden="true">II</div>
+    <h2>The playbook came from junk food</h2>
+    <p>Somebody designed your distraction, and got paid for it.</p>
+  </div>
+  <div class="col">
+    <p class="lede" style="--c:var(--signal)">Start with who gets paid when you lose focus. A company that sells messaging software renews its contract by showing engagement: look how much everyone uses us. So the defaults on your phone, your email and your apps are tuned for engagement, not for your productivity.</p>
+    <p>Yousef is blunt about who does the tuning: “people like me.” Cognitive and behavioral neuroscientists test everything, from the sound an email makes when it sends to the exact feel of a vibration.</p>
+    <div class="nugget" style="--c:var(--signal)">
+      <q>I am better than the default settings. The default settings are not there to help you.</q>
+      <div class="who"><span>Dr. Sahar Yousef's mantra</span><button class="copyx" data-x="A neuroscientist's mantra: 'I am better than the default settings.' Your phone, email and apps ship tuned for engagement, not for your productivity. Change them. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
+    </div>
+    <p>Then she makes the comparison that frames the whole conversation. The tech industry copied the food industry's three-part playbook almost exactly.</p>
+  </div>
+
+  <div class="split">
+    <figure style="margin:0"><img class="plate" src="img/playbook.webp" alt="Watercolor of a bright lollipop beside a phone covered in saturated app icons." width="1400" height="875"><figcaption class="pcap">Same recipe, different aisle.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--signal)">The shared recipe</p>
+      <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,34px);line-height:1.2">Take a real human need. Then turn three dials.</p>
+      <p>Food meets a need to eat. Social media meets a need to connect and to learn something new. Neither need is the problem. The dials are.</p>
+    </div>
+  </div>
+
+  <div class="wide">
+    <div class="levers" role="table" aria-label="The three levers, in food, in tech, and how to reverse them">
+      <div class="lever head" role="row"><div role="columnheader">Lever</div><div role="columnheader">Junk food</div><div role="columnheader">Your phone</div><div role="columnheader">Reverse it</div></div>
+      <div class="lever" role="row"><div class="name" role="cell"><small>Dial 1 · up</small>Stimulation</div><div data-l="Junk food" role="cell">Add sugar, salt and fat wherever possible. Sugar even shows up in ordinary bread.</div><div data-l="Your phone" role="cell">Saturated icons and bright light, like a casino. Fast short-form video. Rewards on a random schedule.</div><div class="fix" data-l="Reverse it" role="cell"><b>Turn it down</b>Grayscale. Notifications off except VIPs.</div></div>
+      <div class="lever" role="row"><div class="name" role="cell"><small>Dial 2 · down</small>Friction</div><div data-l="Junk food" role="cell">Fast food, cute packaging, everything ready to eat everywhere.</div><div data-l="Your phone" role="cell">The infinite scroll. Feeds used to end. “Like a buffet where you just open your mouth.”</div><div class="fix" data-l="Reverse it" role="cell"><b>Add it back</b>Phone out of sight. Portion control for content.</div></div>
+      <div class="lever" role="row"><div class="name" role="cell"><small>Dial 3 · down</small>Fullness</div><div data-l="Junk food" role="cell">Strip out the protein and fiber that make you full. You are hungry again soon.</div><div data-l="Your phone" role="cell">The illusion of connection and learning. The longer people spend on these apps, the lonelier they report feeling.</div><div class="fix" data-l="Reverse it" role="cell"><b>Eat real food</b>Long form over short. Real people, in person.</div></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub">The feed knows when you are about to leave</h3>
+    <p>Humans get more hooked on rewards that are unpredictable. It is the same mechanism behind slot machines, and, Yousef says, behind love-bombing in toxic relationships. Her account of the algorithm: it holds back the content it knows you will love, serves you so-so posts while you are fresh, and plays the jackpot right before you would quit.</p>
+  </div>
+
+  <div class="lab-box" id="feed" style="--c:var(--signal)">
+    <div class="kicker">Try it · A rigged feed</div>
+    <h3>Keep scrolling until you are bored</h3>
+    <p class="intro">This toy feed works the way Yousef describes. Watch your boredom meter, and watch when the good stuff shows up.</p>
+    <div class="feed-wrap">
+      <div class="phone"><div class="screen" id="feed-screen"></div></div>
+      <div class="feed-side">
+        <div class="row"><button class="btn" id="feed-next">Scroll ↓</button><button class="btn ghost" id="feed-reset">Reset</button></div>
+        <div class="meterline"><span>Your boredom</span><span id="feed-count">0 posts</span></div>
+        <div class="boredom" aria-hidden="true"><i id="feed-bore"></i><span class="thr"></span></div>
+        <div class="spark" id="feed-spark" aria-hidden="true"></div>
+        <div class="ui small muted" style="margin-top:6px">How good each post was · gold = jackpot</div>
+        <p class="feed-note" id="feed-note">Press scroll. Space or the down arrow works too.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Distraction does not only come to us. We also go looking for it. When work gets hard, the brain does its job: it tries to solve the discomfort. Facing the problem is hard. Escaping is one tap away. The phone has become, in Yousef's words, a fast and cheap exit from reality.</p>
+    <p>Steven brought up a 2014 study (Wilson and colleagues, <em>Science</em>, 2014). People left alone with their thoughts for 15 minutes could press a button to give themselves a mild electric shock, one they had said they would pay to avoid. In the paper's numbers, 67% of the men and 25% of the women pressed it anyway, and one man did it 190 times.</p>
+    <p>Yousef's answer, and it matters: <strong>no shame.</strong> “You have literally hundreds of experts that have designed these tools to be as addictive as they are.” A brain that gets hooked is working as designed. The question is what you do next.</p>
+  </div>
+  <div class="closer"><p>You didn't lose a fair fight. Hundreds of experts were on the other side.</p></div>
+</section>
+
+<!-- ================= PART III ================= -->
+<section class="part" id="fix" style="--c:var(--leaf)">
+  <div class="part-head">
+    <div class="num" aria-hidden="true">III</div>
+    <h2>Run the neuroscience in reverse</h2>
+    <p>Yousef calls it the reverse UNO, after the card that flips the game back on whoever played it. They used the brain's wiring to hook us. We can use the same wiring to get free.</p>
+  </div>
+
+  <div class="col">
+    <p class="lede" style="--c:var(--leaf)">The fix starts with a story Steven told. Kevin O'Leary once described Steve Jobs to him as someone who could always separate the <strong>signal</strong>, the one thing that matters today, from the <strong>noise</strong>, which is everything else. Jony Ive put it more sharply: focus means saying no to an idea you know is brilliant, because it isn't what you're working on.</p>
+    <p>Yousef then asked Steven a question. You can turn up the signal or turn down the noise. Which is easier? “Decreasing the noise,” he said. She agreed. So the plan has an order: fix the foundation, turn the noise down, then turn the signal up.</p>
+  </div>
+
+  <div class="split">
+    <figure style="margin:0"><img class="plate" src="img/carfire.webp" alt="Watercolor of a blue car with flames rising from the hood." width="1400" height="875"><figcaption class="pcap">Three pings, still coming.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--leaf)">1 · The foundation</p>
+      <h3 style="font-size:clamp(28px,2.4vw + 12px,40px);margin-bottom:12px">Sleep at least 7 hours</h3>
+      <p>Founders come to Yousef asking for a 1% edge on five hours of sleep a night. She compares it to a car brought in for a performance tune-up while the engine is on fire. Put the fire out first.</p>
+      <p>Short sleep hurts thinking and emotional control. Until it is fixed, she can't even measure your baseline.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="color:var(--leaf)">Turn the noise down</h3>
+    <p><strong>2. Make your phone gray.</strong> Grayscale is a setting on every phone, usually under Accessibility. Without color, the phone feels “dead” and far less stimulating, especially late at night when willpower is low. In her lab, healthy working professionals who switched to gray for three weeks used their phones about an hour less per day. That is her lab's figure; other studies have found smaller drops, but the direction is the same.</p>
+  </div>
+
+  <div class="lab-box" id="gray" style="--c:var(--leaf)">
+    <div class="kicker">Try it · Grayscale</div>
+    <h3>Flip the switch</h3>
+    <div class="gs-wrap">
+      <div class="phone" style="max-width:240px"><div class="screen"><div class="home" id="home"></div></div></div>
+      <div>
+        <label class="toggle" for="gs-toggle"><input type="checkbox" id="gs-toggle"> Color filters: Grayscale</label>
+        <p class="muted ui small" style="margin-top:10px">iPhone: Settings → Accessibility → Display &amp; Text Size → Color Filters. Android: Settings → Digital Wellbeing → Bedtime mode, or Accessibility → Color correction.</p>
+        <div class="calc">
+          <label class="ui" for="gs-hours" style="font-weight:600;font-size:15px">Hours back per day: <span id="gs-hv">0.5</span></label>
+          <input type="range" id="gs-hours" min="0.25" max="2" step="0.25" value="0.5">
+          <div class="calc-out">
+            <div><b id="gs-w">7</b>hours a week</div>
+            <div><b id="gs-y">365</b>hours a year</div>
+            <div><b id="gs-d">15</b>waking days a year</div>
+          </div>
+          <p class="ui small muted" style="margin-top:10px">Starts at half an hour, since independent studies have reported smaller effects. Yousef's lab saw about one hour; slide to compare. Waking day = 16 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p><strong>3. Notifications off, except VIPs.</strong> Steven raised the obvious worry: what if something urgent happens? Yousef's answer comes from the post office.</p>
+  </div>
+
+  <div class="split rev">
+    <figure style="margin:0"><img class="plate" src="img/mailbox.webp" alt="Watercolor of a red front door with a knocker and a package waiting for signature, beside an overflowing blue mailbox on a post." width="1400" height="875"><figcaption class="pcap">Knock, or wait in the box.</figcaption></figure>
+    <div class="tight">
+      <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,34px);line-height:1.2">A package that needs a signature gets a knock. Everything else goes in the mailbox.</p>
+      <p>Pick your VIPs: partner, boss, boss's boss, maybe your top 15 clients. Let only them break through, on phone and email. Yousef also flags a few keywords, like her first name. Being CC'd on seven people solving their own problem is mailbox.</p>
+    </div>
+  </div>
+
+  <div class="lab-box" id="vip" style="--c:var(--leaf)">
+    <div class="kicker">Try it · Knock or mailbox?</div>
+    <h3>Sort your next eight pings</h3>
+    <div class="vip-list" id="vip-list"></div>
+    <p class="vip-sum" id="vip-sum" aria-live="polite"></p>
+  </div>
+
+  <div class="col">
+    <p><strong>4. Put the phone out of sight.</strong> Steven locked his in a box at the start of the interview. You don't need a box. Distance does it. Yousef's analogy: you wouldn't set a beer in front of someone trying to get sober. Steven's version: he doesn't keep Skittles in his pocket, because he would eat them every time he got bored.</p>
+    <p><strong>5. Choose long form over short form, and real people over feeds.</strong> Yousef is not anti-screen. A good film has been shown to build empathy in young people. Too much short form, she argues, leaves people more anxious and less sharp. Watching a movie? Watch the movie, without the phone.</p>
+    <p>Under both is a real need. If the hunger is connection, feed it with people: dinners, conversations, touch. Do that, she says, and you'll find you crave the feed less. Steven added Jack Dorsey's old metric for Twitter, <em>regrettable minutes</em>: did that hour leave you better off?</p>
+    <div class="nugget" style="--c:var(--leaf)">
+      <q>Put your phone in gray. People spent one hour less on their phones every day. That's seven hours a week.</q>
+      <div class="who"><span>Dr. Sahar Yousef, on her lab's three-week test (independent studies have found smaller effects)</span><button class="copyx" data-x="Easiest focus upgrade I've heard: turn your phone to grayscale. In Dr. Sahar Yousef's Berkeley lab, people who did it for 3 weeks used their phones about 1 hour less a day. Her lab's number; other studies find less. Still: time back. (via The Diary of a CEO)">Copy for X</button></div>
+    </div>
+
+    <h3 class="sub" style="color:var(--leaf)">Turn the signal up</h3>
+    <p>Cutting noise frees attention. The signal is what you point it at. Yousef builds it in three layers: <strong>what</strong> matters, <strong>how</strong> to do it, and <strong>when</strong>. The tenth rule, one task at a time, is the one you tested in Part I.</p>
+  </div>
+
+  <div class="split">
+    <figure style="margin:0"><img class="plate" src="img/mountain.webp" alt="Watercolor of a blue mountain with a dotted switchback path climbing to the snowy summit and a tiny figure at the base." width="1400" height="918"><figcaption class="pcap">Pole pole: one step, then the next. The bigger gold dots are the cheese at each turn.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--leaf)">6a · The what: your Everest</p>
+      <p>If you can't tell which of your 69 to-dos matters most, step back. Where do you want to be in five years? That is your Everest. Her way in: picture yourself on your deathbed at 110.</p>
+      <p>Steven tried it on air, eyes closed. First he noticed who was in the room, then what they thought of him. In under a minute he had three priorities: a big family, being a role model his kids could point to, and proof that his time here was a net positive for the planet. Yousef's own answer: to have loved deeply, and to have served.</p>
+    </div>
+  </div>
+
+  <div class="lab-box everest" style="--c:var(--leaf)">
+    <div class="kicker">Try it · The deathbed question</div>
+    <h3>At 110, looking back, what must have happened?</h3>
+    <p class="intro">What do you need to have experienced, achieved or done to leave with a smile? Stays in this browser only.</p>
+    <textarea id="everest" placeholder="I want to have…"></textarea>
+    <p class="ui" style="margin-top:12px;font-size:15px;font-weight:600">Now write down the one to three tasks that would move you toward it today. Those are your MITs. Three is the limit, on purpose.</p>
+    <p class="ui small muted" style="margin-top:8px">Hospice nurse Bronnie Ware kept a log of what her dying patients regretted. The most common: not living a life true to themselves, and caring too much about what others thought.</p>
+  </div>
+
+  <div class="col">
+    <div class="nugget" style="--c:var(--leaf)">
+      <q>Family, and having a big family. Being a good role model to them. And them having evidence that me being here was net positive.</q>
+      <div class="who"><span>Steven Bartlett, on what he saw at his deathbed</span><button class="copyx" data-x="Steven Bartlett tried the deathbed exercise live: picture yourself at 110, who's in the room, what do they think of you? His answer in under a minute: a big family, being a role model, evidence his time here was net positive. Three priorities. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
+    </div>
+    <p class="kicker" style="color:var(--leaf);margin-top:48px">6b · The what: MITs, not LITs</p>
+    <p>Each morning, treat your to-do list like a fridge. How much focus time do you have today? Then pick one to three <strong>MITs</strong>, most important tasks: the ones that would make today a success. Her lab has studied another way to ask it: “What will your future self thank you for?”</p>
+    <p>Everything else is a <strong>LIT</strong>, least important task: the DocuSign, the toilet paper order. LITs feel good because they give fast dopamine. They fill the gaps between meetings. Your best uninterrupted hour goes to an MIT.</p>
+  </div>
+
+  <div class="col">
+      <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,34px);line-height:1.2">Sprinkle the cheese through the maze.</p>
+      <p>An MIT is a long maze with a big hunk of cheese at the end. A LIT is a crumb right in front of you. So break the MIT into crumbs, each one paying out a little progress.</p>
+      <p>Kilimanjaro guides told Yousef's husband the same thing: <em>pole pole</em>, Swahili for “slowly, slowly.” Steven's version comes from cycling coach Sir Dave Brailsford: <strong>pedals over podiums.</strong> Once British Cycling broke its goals into tiny ones, Brailsford told him, people stopped leaving at 5 p.m. and stayed until 1 a.m. They felt they were going somewhere. Steven calls it the <strong>progress principle</strong>.</p>
+  </div>
+
+  <div class="col">
+    <p class="kicker" style="color:var(--leaf);margin-top:48px">7 · The how: the focus sprint</p>
+    <p>Yousef's method for deep work. Her lab found it helps people get up to twice as much done, with fewer mistakes. It has five steps.</p>
+  </div>
+
+  <div class="lab-box" id="sprint" style="--c:var(--leaf)">
+    <div class="kicker">Try it · Focus sprint</div>
+    <h3>Five steps, then start the clock</h3>
+    <div class="sprint-steps" id="sprint-steps" role="tablist" aria-label="Focus sprint steps"></div>
+    <div class="sdetail" id="sdetail" role="tabpanel" aria-live="polite"></div>
+    <div class="timer">
+      <div class="ring" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--paper-2)" stroke-width="9"/><circle id="ring-arc" cx="60" cy="60" r="52" fill="none" stroke="var(--signal)" stroke-width="9" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0"/></svg>
+        <div class="t"><span id="tm-t">25:00</span><small id="tm-s">ready</small></div>
+      </div>
+      <div>
+        <div class="ui" style="font-weight:700;font-size:14px">Your execution list (outputs, not inputs)</div>
+        <div class="exec" id="exec"></div>
+        <div class="ui small muted" id="exec-sum" style="margin-bottom:12px"></div>
+        <div class="row">
+          <div class="chips" id="tm-chips"></div>
+          <button class="btn" id="tm-go">Start sprint</button>
+          <button class="btn ghost" id="tm-reset">Reset</button>
+        </div>
+        <span class="sr" id="tm-live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="nugget" style="--c:var(--leaf)">
+      <q>The center point of your influence on this planet is the allocation of your time.</q>
+      <div class="who"><span>Steven Bartlett, quoting a line that stuck with him</span><button class="copyx" data-x="'The center point of your influence on this planet is the allocation of your time.' A line Steven Bartlett says stuck with him. Family, health, work: all downstream of where the hours go. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
+    </div>
+    <p>Yousef's point about timers is not pressure for its own sake. Condense the work and you get your evenings back, which is where the deathbed priorities live.</p>
+  </div>
+
+  <div class="split">
+    <figure style="margin:0"><img class="plate" src="img/window.webp" alt="Watercolor of a window looking onto a green tree, with a pink mug on the sill." width="1400" height="1026"><figcaption class="pcap">Nothing coming in. That's the break.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--leaf)">8 · The brain break</p>
+      <p>A brain break is a short stretch with no information coming in. Scrolling is not a break. It's like resting between sets by lifting lighter weights. Reading the news counts as lifting too.</p>
+      <p>Yousef describes a 2024 study that measured fatigue after work and compared four kinds of break.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="ladder" aria-label="Breaks ranked from best to worst">
+      <div class="rung" style="--c:var(--leaf)"><span class="r">1</span><span class="l"><b>Look at nature</b>Best. Go outside, or at least look out a window.</span></div>
+      <div class="rung" style="--c:var(--calm)"><span class="r">2</span><span class="l"><b>Do nothing</b>Close behind. Stare at a wall.</span></div>
+      <div class="rung" style="--c:var(--muted)"><span class="r">3</span><span class="l"><b>No break</b>You don't recover.</span></div>
+      <div class="rung" style="--c:var(--noise)"><span class="r">4</span><span class="l"><b>TikTok-style scrolling</b>Worst. More information, no rest.</span></div>
+    </div>
+    <p class="ui small muted">Ranking as described in the episode. The page shows order only, not effect sizes.</p>
+    <p>Yousef prefers systems to willpower. Can't do nothing? Use your hands. Skip the grab-and-go snacks: cut the cheese from the block, boil the kettle. If both hands are busy, you can't scroll. Steven's break is learning to DJ, which locks him in completely.</p>
+    <p>For hard problems, the same principle helps creativity. Load the problem fully, then <strong>walk away</strong>: shower, walk the dog, wash the dishes. A new setting loosens the networks stuck on the problem, and the idea shows up.</p>
+  </div>
+
+  <div class="split rev">
+    <figure style="margin:0"><img class="plate" src="img/sunmoon.webp" alt="Watercolor of a dotted arc across the sky from a rising sun, through a midday sun, to a crescent moon over a blue horizon." width="1400" height="787"><figcaption class="pcap">Three people, one sky, three best hours.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--leaf)">9 · The when: your chronotype</p>
+      <p>Your attention span is not constant. You are a different version of yourself at 8 a.m., 2 p.m. and 8 p.m. Yousef describes three chronotypes, with the population shares she cites.</p>
+      <p>Both Steven and Yousef are night owls. When she mentioned that PM-shifted people tend to be the most artistic and creative, Steven grinned: “Look at the camera and say that again.” He never records before 11 a.m. He once took a key meeting at 7 a.m. and called his own performance terrible.</p>
+    </div>
+  </div>
+
+  <div class="lab-box" id="chrono" style="--c:var(--leaf)">
+    <div class="kicker">Try it · Which one are you?</div>
+    <h3>Three questions</h3>
+    <form class="quiz" id="quiz">
+      <fieldset class="q"><legend>No alarm, no plans. You wake up around…</legend><div class="opts">
+        <label><input type="radio" name="q1" value="am"><span>Before 6:30</span></label>
+        <label><input type="radio" name="q1" value="bi"><span>7 to 8:30</span></label>
+        <label><input type="radio" name="q1" value="pm"><span>After 9</span></label></div></fieldset>
+      <fieldset class="q"><legend>Your clearest thinking happens…</legend><div class="opts">
+        <label><input type="radio" name="q2" value="am"><span>First thing</span></label>
+        <label><input type="radio" name="q2" value="bi"><span>Late morning, again late afternoon</span></label>
+        <label><input type="radio" name="q2" value="pm"><span>Evening into night</span></label></div></fieldset>
+      <fieldset class="q"><legend>Mid-afternoon you feel…</legend><div class="opts">
+        <label><input type="radio" name="q3" value="am"><span>Fading steadily</span></label>
+        <label><input type="radio" name="q3" value="bi"><span>A big slump, then a second wind</span></label>
+        <label><input type="radio" name="q3" value="pm"><span>Just warming up</span></label></div></fieldset>
+    </form>
+    <div class="chrono-out" aria-live="polite">
+      <h4 id="ch-name">Biphasic</h4>
+      <p id="ch-desc" style="margin:0;color:var(--ink-2)"></p>
+      <div class="chart-box"><svg id="ch-svg" viewBox="0 0 720 260" role="img" aria-label="Energy across the day for the three chronotypes, with focus windows shaded for the selected type."></svg></div>
+      <div class="legend"><span style="--c:var(--signal)">AM-shifted · ~25%</span><span style="--c:var(--leaf)">Biphasic · the majority</span><span style="--c:var(--calm)">PM-shifted · ~16%</span></div>
+      <p class="ui small muted" style="margin-top:6px">Curves are illustrative shapes drawn from her descriptions, not measured data. Shaded band = best window for focus sprints.</p>
+    </div>
+  </div>
+  <div class="closer"><p>Noise down first. Whatever attention is left, aim it at the mountain.</p></div>
+</section>
+
+<!-- ================= STAKES ================= -->
+<section class="part" id="stakes" style="--c:var(--calm)">
+  <div class="part-head">
+    <div class="num" aria-hidden="true"></div>
+    <h2>The thinking class</h2>
+    <p>Why this is bigger than productivity.</p>
+  </div>
+  <div class="figure wide" style="max-width:980px"><figure style="margin:0"><img class="plate" src="img/crowd.webp" alt="Watercolor of rows of grey figures looking down at glowing red phones, with three figures in blue whose heads glow gold." width="1400" height="875"><figcaption class="pcap">The thinking class, as she fears it: a few who can still think, and everyone else looking down.</figcaption></figure></div>
+  <div class="col">
+    <p class="lede" style="--c:var(--calm)">Steven held up an email Yousef once received from a tech company. It praised her research on <em>strategic automaticity</em>, the science of making behavior automatic, and asked for help making their product “more sticky.” The attached offer was four times her salary as a public researcher. She says she has been courted more times than she can count, and she doesn't think the people asking are evil. The incentives are simply that strong.</p>
+    <p>Her real fear comes from conversations with leaders in AI. Unless something changes, she warns of a future with a <strong>“thinking class”</strong>: a small group with the education and attention span to think critically, ask questions and generate ideas. Everyone else is expected to do as they're told. A distracted population is easier to control.</p>
+    <p>The last century widened the thinking class, especially for women and girls. She believes it is now shrinking again, because of algorithms and AI. AI is taking thinking away from us, she says, “because we're letting it.”</p>
+    <div class="nugget" style="--c:var(--calm)">
+      <q>Digital dependence is going to be the Everest for our species.</q>
+      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="'Digital dependence is going to be the Everest for our species.' Dr. Sahar Yousef (UC Berkeley) warns of a future with a small 'thinking class' and everyone else told what to do. A distracted population is easier to control. (The Diary of a CEO)">Copy for X</button></div>
+    </div>
+    <p>Why is it so tempting to hand our thinking over? The brain is wired for shortcuts, because energy used to be scarce. Yousef quotes a line attributed to Daniel Kahneman: thinking is to humans as swimming is to cats. They can do it, but they'd prefer not to.</p>
+    <p>Steven shared a story from his own team. He told a colleague that their reasoning was much stronger in person than in the documents they sent, which read like AI. The person knew more real-world context than the model did. The temptation to let a chatbot think for you will only grow, so resisting it is now a skill.</p>
+    <p>Her first step is to measure. We get an annual physical and a blood test, she points out, but never check our minds. Her institute, the Mind, Machine &amp; Meaning Institute, offers free attention and digital-dependence assessments at <a href="https://mmminstitute.org" target="_blank" rel="noopener">mmminstitute.org</a>.</p>
+  </div>
+
+  <div class="split" style="margin-top:80px">
+    <figure style="margin:0"><img class="plate" src="img/bricks.webp" alt="Watercolor of a red brick wall with a glowing golden door set into it." width="1400" height="875"><figcaption class="pcap">Those brick walls are doors.</figcaption></figure>
+    <div class="tight">
+      <p class="kicker" style="color:var(--calm)">Coda · How to get luckier</p>
+      <p>The episode ends with a question left by the previous guest: how can the audience become more lucky?</p>
+      <p>Her answer is the page's argument, backwards. The mind is a focus machine that looks for evidence of what it already holds. Fill it with noise, or with a victim story, and you'll notice closed doors. Fill it with your Everest and today's next step, and you start spotting chances. That is turning the signal up.</p>
+      <p>She headed off the obvious objection herself: this isn't just manifestation. Name the goal, keep it top of mind, and your brain starts noticing the openings. Then she tested it live. Steven named a dream guest, Barack Obama. Keep it top of mind, she told him, and one day you'll meet one of his former chiefs of staff by chance.</p>
+      <p>The same wiring works against you if you ruminate: replaying a victim story only deepens that pathway. Her advice is to notice it, then redirect your attention to the story you want to feed.</p>
+      <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,32px);line-height:1.2">“The world is not full of brick walls. Those brick walls are doors. They have handles.”</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARD ================= -->
+<section id="card" class="part" style="padding-top:60px">
+  <div class="sheet">
+    <div class="kicker" style="color:var(--signal)">The whole episode on one card</div>
+    <h3>Your attention reset</h3>
+    <p style="position:relative;margin:0 0 10px;font-size:18px"><b>The problem:</b> brain fog has a cause. The average knowledge worker lasts about 47 seconds on one screen.</p>
+    <p style="position:relative;margin:0 0 14px;font-size:18px"><b>First, measure.</b> Yousef's institute offers free attention and digital-dependence tests at mmminstitute.org.</p>
+    <ol id="sheet-list">
+      <li><b>Sleep at least 7 hours.</b> Asking for a productivity edge on 5 hours is asking to tune an engine that's on fire.</li>
+      <li><b>Turn your phone grayscale.</b> Color is part of the hook. In Yousef's lab test, people used their phones about an hour less a day.</li>
+      <li><b>Notifications off, except VIPs.</b> If it would need a signature at your door, it can knock. Everything else goes in the mailbox.</li>
+      <li><b>Phone out of sight when you focus.</b> You don't keep candy in your pocket when you're trying to eat less of it.</li>
+      <li><b>Long form over short form. Real people over feeds.</b> Feed the actual hunger: learning and connection.</li>
+      <li><b>Picture yourself at 110.</b> What must have happened? That's your Everest. Then pick 1–3 tasks a day your future self will thank you for.</li>
+      <li><b>Work in focus sprints.</b> Block the time, define the output, cut distractions, start a countdown, take a real break.</li>
+      <li><b>A real break is nature or nothing.</b> Scrolling between tasks is lifting lighter weights between sets.</li>
+      <li><b>Do your hardest thinking at your peak hour.</b> Morning person, night owl, or two peaks with a slump in between.</li>
+      <li><b>One task at a time.</b> Every switch costs speed and memory. Close the tab before you open the next.</li>
+    </ol>
+    <button class="copyx" id="copy-sheet">Copy as an X thread</button>
+  </div>
+
+  <div class="col" style="margin-top:60px">
+    <div class="kicker">Notes and sources</div>
+    <ul class="notes">
+      <li>Source: <em>The Diary of a CEO</em>, Steven Bartlett with Dr. Sahar Yousef (UC Berkeley; Becoming Superhuman Lab), released October 15, 2026. <a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch on YouTube</a>. Quotes are lightly cleaned from the auto-generated transcript. Sponsor reads are omitted.</li>
+      <li>Figures attributed to Yousef are as stated in the episode: grayscale (about 1 hour less per day over 3 weeks) and focus sprints (up to 2× output) are from her lab; of the chronotype shares, 16% PM-shifted is from her lab and about 25% AM-shifted is a general figure she cites. Independent grayscale research has reported smaller effects. This page did not independently verify them.</li>
+      <li>47 seconds: Gloria Mark, <em>Attention Span</em> (2023). Steven's switching result is from a single on-camera trial, not a study.</li>
+      <li>Electric-shock study: Wilson et al., “Just think: The challenges of the disengaged mind,” <em>Science</em> 345 (2014). In the episode it was described more loosely, as “hundreds” of shocks.</li>
+      <li>The 2024 break study and the claim that time on social apps tracks with loneliness are as described in the episode. Bronnie Ware's regrets: <em>The Top Five Regrets of the Dying</em> (2011).</li>
+      <li>Watercolor plates were generated for this page with OpenCV. Every shape is laid down as a pigment glaze with wobbled edges, pooled rims and granulation, mixed subtractively the way paint is.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Made for reading slowly. Then put the phone down.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef.</span></footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+if(!RM&&document.visibilityState==='visible')document.documentElement.classList.add('anim');
+/* headline word stagger */
+(()=>{const h=$('#headline');if(RM)return;let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim()){f.append(w);return}const s=document.createElement('span');s.className='w';s.style.animationDelay=(i++*70)+'ms';s.textContent=w;f.append(s)});c.replaceWith(f)}else walk(c)})};walk(h)})();
+
+/* progress + rail */
+const prog=$('#prog'), rail=$$('.rail a');
+const secIds=['top','problem','cause','fix','stakes','card'];
+function onScroll(){const d=document.documentElement;prog.style.width=(100*d.scrollTop/(d.scrollHeight-d.clientHeight))+'%';
+  let cur=0;secIds.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.4)cur=i});
+  rail.forEach((a,i)=>a.classList.toggle('on',i===cur))}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* copy buttons */
+function copy(btn,text){const done=()=>{btn.classList.add('done');const o=btn.dataset.label||btn.textContent;btn.dataset.label=o;btn.textContent='Copied';setTimeout(()=>{btn.textContent=o;btn.classList.remove('done')},1600)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>fallback(text,done))}else fallback(text,done)}
+function fallback(text,done){const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.append(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}
+$$('.copyx[data-x]').forEach(b=>b.addEventListener('click',()=>copy(b,b.dataset.x)));
+$('#copy-sheet').addEventListener('click',e=>{const items=$$('#sheet-list li').map((li,i)=>`${i+1}/ ${li.textContent.trim()}`);
+  copy(e.currentTarget,['A neuroscientist\'s attention reset, from Dr. Sahar Yousef on The Diary of a CEO. You can\'t remember what you never paid attention to. 🧵',...items,'Full illustrated page: [link]. Episode: https://youtu.be/yePLuwL3FbM'].join('\n\n'))});
+
+/* ---------- scrolly engine ---------- */
+const handlers={};
+$$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc.querySelectorAll('.step')];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const n=steps.indexOf(e.target);steps.forEach((s,i)=>s.classList.toggle('on',i===n));handlers[id]&&handlers[id](n)}})},{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(s=>io.observe(s));steps[0].classList.add('on')});
+
+/* ---------- attention simulation ---------- */
+(()=>{const cv=$('#simc'),ctx=cv.getContext('2d');let W=0,H=0,running=false,vis=false;
+  const P=[],MEM=[],N=150;let gap=.7,gapT=.7,blockT=0,memOn=false,step=0,passes=[];
+  const blockers=[0,1,2,3].map(i=>({ph:i*1.7,on:0}));
+  function size(){const r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
+  function spawn(p,init){p.x=init?Math.random()*W*.48:-10-Math.random()*60;p.y=H*.14+Math.random()*H*.72;p.v=(.5+Math.random()*.9)*W/700;p.r=2+Math.random()*2.6;p.s=0;p.a=1;p.c=Math.floor(Math.random()*3)}
+  for(let i=0;i<N;i++){const p={};P.push(p)}
+  function geom(){return{gx:W*.5,cy:H*.5,gh:gap*H*.72,jx:W*.8,jr:Math.min(W*.14,H*.24)}}
+  function tick(t){const g=geom();gap+=(gapT-gap)*.06;
+    blockers.forEach((b,i)=>{b.on+=((i<blockT?1:0)-b.on)*.05;b.ph+=.02});
+    for(const p of P){
+      if(p.s===0){p.x+=p.v;
+        if(p.x>=g.gx-4&&p.x<=g.gx+4){let blocked=Math.abs(p.y-g.cy)>g.gh/2;
+          blockers.forEach((b,i)=>{if(b.on>.5){const by=g.cy+Math.sin(b.ph+i)*g.gh*.38,bx=g.gx+(i%2?14:-14);if(Math.hypot(p.x-bx,p.y-by)<18*b.on+p.r)blocked=true}});
+          if(blocked){p.s=2}else{p.s=1;passes.push(t)}}}
+      else if(p.s===1){const dx=g.jx-p.x,dy=g.cy-p.y;p.x+=dx*.06+p.v*.3;p.y+=dy*.06;
+        if(Math.hypot(dx,dy)<g.jr*.6){if(memOn){MEM.push({a:1,ang:Math.random()*6.283,rr:Math.sqrt(Math.random())*g.jr*.82,c:p.c});if(MEM.length>260)MEM.shift()}spawn(p)}}
+      else{p.x-=p.v*.8;p.y+=(p.y<g.cy?-1:1)*.6;p.a-=.02;if(p.a<=0)spawn(p)}
+      if(p.x>W+20)spawn(p)}
+    const fade=blockT>0?.006:.0015;for(let i=MEM.length-1;i>=0;i--){MEM[i].a-=fade;if(MEM[i].a<=0)MEM.splice(i,1)}
+    passes=passes.filter(x=>t-x<2000)}
+  function draw(){const g=geom(),ink=css('--ink'),mut=css('--muted'),sig=css('--signal'),noi=css('--noise'),calm=css('--calm'),rule=css('--rule');
+    ctx.clearRect(0,0,W,H);
+    // jar
+    ctx.beginPath();ctx.arc(g.jx,g.cy,g.jr,0,6.283);ctx.fillStyle=memOn?css('--signal-soft'):css('--paper-2');ctx.globalAlpha=.55;ctx.fill();ctx.globalAlpha=1;ctx.lineWidth=2;ctx.strokeStyle=rule;ctx.stroke();
+    for(const m of MEM){ctx.globalAlpha=Math.max(0,m.a);ctx.fillStyle=sig;ctx.beginPath();ctx.arc(g.jx+Math.cos(m.ang)*m.rr,g.cy+Math.sin(m.ang)*m.rr,3,0,6.283);ctx.fill()}
+    ctx.globalAlpha=1;
+    // particles
+    const cols=[calm,mut,css('--leaf')];
+    for(const p of P){ctx.globalAlpha=p.a*(p.s===1?1:.75);ctx.fillStyle=p.s===1?sig:cols[p.c];ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
+    ctx.globalAlpha=1;
+    // gate
+    ctx.strokeStyle=ink;ctx.lineWidth=7;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(g.gx,H*.1);ctx.lineTo(g.gx,g.cy-g.gh/2);ctx.moveTo(g.gx,g.cy+g.gh/2);ctx.lineTo(g.gx,H*.9);ctx.stroke();
+    // blockers
+    blockers.forEach((b,i)=>{if(b.on<.02)return;const by=g.cy+Math.sin(b.ph+i)*g.gh*.38,bx=g.gx+(i%2?14:-14);ctx.globalAlpha=b.on;ctx.fillStyle=noi;ctx.beginPath();ctx.arc(bx,by,18*b.on,0,6.283);ctx.fill();
+      ctx.fillStyle='#fff';ctx.font='700 12px Libre Franklin, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(i*3+2),bx,by+.5)});
+    ctx.globalAlpha=1;
+    $('#sim-rate').textContent=MEM.length}
+  let t0=0;function loop(t){if(!running)return;tick(t);draw();requestAnimationFrame(loop)}
+  function start(){if(running||RM)return;running=true;requestAnimationFrame(loop)}
+  function still(){for(let i=0;i<500;i++)tick(i*16);draw()}
+  size();P.forEach(p=>spawn(p,true));
+  addEventListener('resize',()=>{size();if(RM)still()});
+  new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis)start();else running=false},{threshold:.05}).observe(cv);
+  if(RM)still();
+  handlers.attn=n=>{step=n;gapT=n===0?.78:.2;memOn=n>=2;blockT=n>=3?4:0;
+    $('#lab-world').classList.toggle('hot',n===0);$('#lab-gate').classList.toggle('hot',n===1||n===3);$('#lab-mem').classList.toggle('hot',n===2);
+    if(RM)still()};
+  handlers.attn(0);
+})();
+
+/* ---------- glass box ---------- */
+(()=>{const badges=$$('#gb .badge'),bar=$('#gb-bar'),lab=$('#gb-lab'),big=$('#gb-big');
+  const w=[100,14,4],l=['plenty','seconds','~30 seconds'];
+  handlers.glass=n=>{badges.forEach((b,i)=>{b.style.transitionDelay=n===1?(i*140)+'ms':'0ms';b.classList.toggle('on',n>=1);b.classList.toggle('pulse',n===1)});
+    bar.style.width=w[n]+'%';$('#gb').classList.toggle('done',n>=2);bar.style.background=n>=1?css('--noise'):css('--calm');lab.textContent=l[n];big.classList.toggle('on',n>=2)};
+})();
+
+/* ---------- switch-cost test ---------- */
+(()=>{const L='ABCDEFGHIJ'.split(''),Nn=[...Array(10)].map((_,i)=>String(i+1));
+  const board=$('#st-board'),task=$('#st-task'),clock=$('#st-clock'),trail=$('#st-trail'),go=$('#st-go');
+  let round=0,seq=[],idx=0,t0=0,timer=null,times=[];
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+  function build(lock){board.innerHTML='';shuffle([...L,...Nn]).forEach(v=>{const b=document.createElement('button');b.className='st-tile'+(isNaN(v)?'':' num');b.textContent=v;b.setAttribute('aria-label',v);b.addEventListener('pointerdown',e=>{e.preventDefault();hit(b,v)});b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();hit(b,v)}});board.append(b)});board.classList.toggle('locked',!!lock)}
+  function setClock(s){clock.innerHTML=s.toFixed(1)+'<span class="muted" style="font-size:20px"> s</span>'}
+  function hit(b,v){if(!round||b.classList.contains('hit'))return;
+    if(v!==seq[idx]){b.classList.remove('miss');void b.offsetWidth;b.classList.add('miss');return}
+    if(idx===0){t0=performance.now();timer=setInterval(()=>setClock((performance.now()-t0)/1000),100)}
+    b.classList.add('hit');idx++;trail.textContent=seq.slice(0,idx).join(' ');
+    if(idx===seq.length){clearInterval(timer);const t=(performance.now()-t0)/1000;setClock(t);times[round-1]=t;finish()}}
+  function begin(r){round=r;idx=0;seq=r===1?[...L,...Nn]:L.flatMap((x,i)=>[x,Nn[i]]);build(false);trail.textContent='';setClock(0);
+    task.innerHTML=r===1?'<b>Round 1 · one at a time</b>A → J, then 1 → 10':'<b>Round 2 · switching</b>A 1 B 2 C 3 … J 10';go.disabled=true;go.textContent='Go!';board.querySelector('button').focus({preventScroll:true})}
+  function finish(){const r=round;round=0;board.classList.add('locked');go.disabled=false;
+    if(r===1){task.innerHTML=`<b>Nice. ${times[0].toFixed(1)} s</b>Now the switching round.`;go.textContent='Start round 2'}
+    else{task.innerHTML='<b>Done</b>See your switch cost below.';go.textContent='Try again';show()}}
+  function show(){const[a,b]=times,m=Math.max(a,b);$('#st-t1').textContent=a.toFixed(1)+' s';$('#st-t2').textContent=b.toFixed(1)+' s';
+    $('#st-result').classList.add('on');requestAnimationFrame(()=>{$('#st-b1').style.width=(100*a/m)+'%';$('#st-b2').style.width=(100*b/m)+'%'});
+    const pct=Math.round((b/a-1)*100);
+    $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Impressive. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
+  go.addEventListener('click',()=>{if(go.textContent.startsWith('Try')){times=[];$('#st-result').classList.remove('on');$('#st-b1').style.width=0;$('#st-b2').style.width=0;begin(1)}else begin(times.length?2:1)});
+  build(true);
+})();
+
+/* ---------- rigged feed ---------- */
+(()=>{const meh=[['Someone you don\'t know','Their lunch, from three angles'],['Suggested for you','A hot take about a hot take'],['Sponsored','Socks, again'],['Trending','A video of a video'],['Suggested for you','Celebrity you don\'t follow'],['Reposted','A meme from 2019'],['Suggested for you','“You won\'t believe #7”'],['Sponsored','A course on productivity'],['Trending','Man yells at cloud, in 4K'],['Suggested for you','Rate my desk setup']];
+  const jack=[['Saved just for you','The exact thing you love'],['It held this back','Your favorite creator, new clip'],['Perfect timing','That one niche obsession of yours']];
+  const hues=[['#6b7a99','#9aa6bf'],['#8a7f72','#b8ad9f'],['#6f8c84','#a2bab3'],['#7d6f8f','#aea2bf']];
+  const scr=$('#feed-screen'),bore=$('#feed-bore'),spark=$('#feed-spark'),note=$('#feed-note'),cnt=$('#feed-count');
+  let b=0,n=0,thr=78,cur=null,jacks=0;
+  function card(isJ){const [tag,title]=isJ?jack[jacks%jack.length]:meh[Math.random()*meh.length|0];const h=hues[Math.random()*hues.length|0];const d=document.createElement('div');d.className='post'+(isJ?' jack':'');
+    d.style.background=isJ?`radial-gradient(circle at 30% 30%,#f6cf6a,#d9871c 70%)`:`linear-gradient(160deg,${h[1]},${h[0]})`;d.innerHTML=(isJ?'<span class="bang">Bang.</span>':'')+`<span class="tag">${tag}</span><h4>${title}</h4>`;return d}
+  function next(){const isJ=b+12>=thr;const d=card(isJ);d.style.transform='translateY(100%)';scr.append(d);void d.offsetWidth;d.style.transform='translateY(0)';
+    if(cur){const c=cur;c.style.transform='translateY(-100%)';setTimeout(()=>c.remove(),500)}cur=d;n++;
+    if(isJ){b=12+Math.random()*8;jacks++}else b+=9+Math.random()*7;b=Math.min(b,thr-2);
+    bore.style.width=b+'%';cnt.textContent=n+(n===1?' post':' posts');
+    const bar=document.createElement('i');bar.style.height=(isJ?92:18+Math.random()*22)+'%';if(isJ)bar.className='j';spark.append(bar);if(spark.children.length>22)spark.firstChild.remove();
+    note.innerHTML=isJ?(jacks===1?'<strong>There it is.</strong> Right before you hit the line, the feed plays the post it was saving. Boredom resets. Keep going.':jacks===2?'Again, just before you would leave. It isn\'t luck. It is a schedule.':'<strong>You never decided to keep scrolling.</strong> The feed decided for you, every time you got close to the exit.'):(n<3?'Meh. Keep going.':'Meh. Your boredom is climbing toward the line where you\'d put the phone down.')}
+  function reset(){scr.innerHTML='';spark.innerHTML='';b=0;n=0;jacks=0;cur=null;bore.style.width=0;cnt.textContent='0 posts';note.textContent='Press scroll. Space or the down arrow works too.';const d=card(false);d.querySelector('h4').textContent='Your feed';d.querySelector('.tag').textContent='Home';scr.append(d);cur=d}
+  $('#feed-next').addEventListener('click',next);$('#feed-reset').addEventListener('click',reset);
+  $('#feed').addEventListener('keydown',e=>{if((e.key===' '||e.key==='ArrowDown')&&e.target.tagName!=='TEXTAREA'){e.preventDefault();next()}});
+  reset();
+})();
+
+/* ---------- grayscale + calculator ---------- */
+(()=>{const home=$('#home');const c=['#ff5f57','#ffbd2e','#28c840','#0a84ff','#bf5af2','#ff375f','#30d158','#64d2ff','#ff9f0a','#5e5ce6','#ffd60a','#ff453a','#32ade6','#ac8e68','#66d4cf','#ff2d55'];
+  c.forEach((x,i)=>{const e=document.createElement('i');e.style.background=`linear-gradient(145deg,${x},${x}cc)`;if([1,5,9,13].includes(i))e.className='dot';home.append(e)});
+  const t=$('#gs-toggle');t.addEventListener('change',()=>home.classList.toggle('gray',t.checked));
+  const r=$('#gs-hours');const up=()=>{const h=+r.value;$('#gs-hv').textContent=h.toFixed(2).replace(/0$/,'');$('#gs-w').textContent=(h*7).toFixed(h*7%1?1:0);$('#gs-y').textContent=Math.round(h*365);$('#gs-d').textContent=(h*365/16).toFixed(0)};r.addEventListener('input',up);up();
+})();
+
+/* ---------- VIP sorter ---------- */
+(()=>{const items=[
+  ['Partner','Car broke down. Call me when you can.','k','A VIP and a real fire. Let it knock.'],
+  ['Reply-all, 9 people','“Thanks everyone!”','m','No action needed from you. Mailbox.'],
+  ['Your boss\'s boss','Mentions you by name: “Sahar, can you confirm?”','k','A VIP plus your name as a keyword. Knock.'],
+  ['Team chat · #random','Someone posted a gif','m','Fun, never urgent. Mailbox.'],
+  ['Top-15 client','Question about the renewal terms','k','On your VIP list. Knock.'],
+  ['Newsletter','“10 productivity hacks you need today”','m','Ironically, mailbox.'],
+  ['CC\'d thread','Stacy and Steven, solving their own problem','m','You need to stay informed, not interrupted. Mailbox.'],
+  ['School nurse','Calling about your kid','k','Family fire. Always knocks.']];
+  const list=$('#vip-list'),sum=$('#vip-sum');const ans={};
+  items.forEach(([f,m,a,why],i)=>{const d=document.createElement('div');d.className='vip';d.innerHTML=`<div><div class="from">${f}</div><div class="msg">${m}</div><div class="why">${why}</div></div><div class="acts" role="group" aria-label="Sort this message"><button data-v="k">Knock</button><button data-v="m">Mailbox</button></div>`;
+    d.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ans[i]=b.dataset.v;d.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));d.classList.add('done');d.classList.toggle('knock',a==='k');d.classList.toggle('box',a==='m');tally()}));list.append(d)});
+  function tally(){const k=Object.keys(ans).length;const right=Object.entries(ans).filter(([i,v])=>items[i][2]===v).length;
+    sum.innerHTML=k<items.length?`${k} of ${items.length} sorted.`:`<strong>${right} of 8</strong> match Yousef's rule. Four of these eight pings could have waited. In a normal day, the mailbox share is far higher.`}
+})();
+
+/* ---------- MIT picker ---------- */
+(()=>{const t=[['Draft the strategy memo','MIT?'],['Sign the DocuSign','LIT'],['Order toilet paper','LIT'],['Finish slides 3–7 of the board deck','MIT?'],['Clear the inbox to zero','LIT'],['Call the client about renewal','MIT?'],['Tidy your calendar','LIT'],['Outline chapter one of the book','MIT?']];
+  const g=$('#mit-grid'),note=$('#mit-note');if(!g)return;let sel=new Set();
+  t.forEach(([x],i)=>{const b=document.createElement('button');b.className='mit';b.innerHTML=`<span>${x}</span><small>tap</small>`;b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',()=>{if(sel.has(i)){sel.delete(i)}else{if(sel.size>=3){b.classList.remove('no');void b.offsetWidth;b.classList.add('no');note.textContent='Three is the maximum. That limit is the point.';return}sel.add(i)}
+      b.classList.toggle('on',sel.has(i));b.setAttribute('aria-pressed',sel.has(i));b.querySelector('small').textContent=sel.has(i)?'MIT':'tap';
+      const lits=[...sel].filter(j=>t[j][1]==='LIT').length;
+      note.textContent=!sel.size?'':lits?`One of your picks is a LIT: fast dopamine, quick to tick off. Save it for a 15-minute gap between meetings.`:sel.size===3?'Good list. Give your best uninterrupted hour to the first one.':`${sel.size} chosen. Ask: will my future self thank me for this?`});g.append(b)});
+})();
+
+/* ---------- Everest ---------- */
+(()=>{const e=$('#everest');e.value=store.get('everest')||'';e.addEventListener('input',()=>store.set('everest',e.value))})();
+
+/* ---------- focus sprint ---------- */
+(()=>{const S=[['Block it','Put the sprint on your calendar in advance. Knowing it is coming lets your body warm up for it, like the butterflies before a talk. A visible calendar block also tells your team you are heads-down, which eases the guilt of not replying.'],
+  ['Define the output','Not “work on the deck” but “finish slide 3 (7 min), email John for slide 17 data (3 min), build the table (15 min).” Pick one MIT and break it into timed pieces, or batch a set of LITs. Finishing pieces releases dopamine. Deciding the next step mid-sprint is where focus leaks.'],
+  ['Cut distractions','Phone out of sight, notifications off. If it is noisy, use headphones. Noise cancelling only for sprints, not all day, or real-world sound starts to feel overwhelming. Music without lyrics, or in a language you don\'t know. Keep one playlist just for focus, so your brain links it to work.'],
+  ['Set a timer','A visible countdown makes most mammals work faster. Think of a classroom cleanup song. Parkinson\'s law: work expands to fill the time you give it, so give it less.'],
+  ['Take a real break','When the timer ends, stop. Look at nature or do nothing for a few minutes. No feeds. Then close the task cleanly before the next one, so you don\'t carry its baggage forward.']];
+  const box=$('#sprint-steps'),det=$('#sdetail');
+  S.forEach(([n,d],i)=>{const b=document.createElement('button');b.className='sstep';b.setAttribute('role','tab');b.innerHTML=`<span class="k">Step ${i+1}</span><b>${n}</b>`;b.addEventListener('click',()=>pick(i));box.append(b)});
+  function pick(i){[...box.children].forEach((b,j)=>{b.classList.toggle('on',j===i);b.setAttribute('aria-selected',j===i)});det.textContent=S[i][1]}pick(0);
+  // execution list
+  const ex=$('#exec'),saved=JSON.parse(store.get('exec')||'null')||[['Finish slide 3','7'],['Email John for slide 17 data','3'],['Build the comparison table','15']];
+  saved.forEach(([a,m],i)=>{const l=document.createElement('label');l.innerHTML=`<input id="ex-t${i}" aria-label="Piece ${i+1}" value="${a.replace(/"/g,'&quot;')}"><input id="ex-m${i}" aria-label="Minutes for piece ${i+1}" type="number" min="1" max="120" value="${m}">`;ex.append(l)});
+  const exSum=$('#exec-sum');function exUpd(){const rows=[...ex.children].map(l=>[...l.querySelectorAll('input')].map(x=>x.value));store.set('exec',JSON.stringify(rows));const tot=rows.reduce((s,r)=>s+(+r[1]||0),0);exSum.textContent=`Planned: ${tot} min of a ${len} min sprint${tot>len?'. Over budget: cut a piece or pick a longer sprint.':'.'}`}
+  ex.addEventListener('input',exUpd);
+  // timer
+  const arc=$('#ring-arc'),tt=$('#tm-t'),ts=$('#tm-s'),go=$('#tm-go'),C=326.7;let len=25,left=len*60,iv=null,end=0;
+  const chips=$('#tm-chips');[15,25,50].forEach(m=>{const c=document.createElement('button');c.className='chip'+(m===25?' on':'');c.textContent=m+' min';c.addEventListener('click',()=>{if(iv)return;len=m;left=m*60;[...chips.children].forEach(x=>x.classList.toggle('on',x===c));paint();exUpd()});chips.append(c)});
+  function fmt(s){s=Math.max(0,Math.ceil(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+  function paint(){tt.textContent=fmt(left);arc.style.strokeDashoffset=C*(1-left/(len*60))}
+  function run(){left=(end-Date.now())/1000;if(left<=0){left=0;clearInterval(iv);iv=null;ts.textContent='break time';go.textContent='Start sprint';$('#tm-live').textContent='Sprint done. Take a real brain break: look outside for five minutes.';pick(4)}paint()}
+  go.addEventListener('click',()=>{if(iv){clearInterval(iv);iv=null;ts.textContent='paused';go.textContent='Resume';return}if(left<=0)left=len*60;end=Date.now()+left*1000;iv=setInterval(run,250);ts.textContent='focus';go.textContent='Pause';pick(3)});
+  $('#tm-reset').addEventListener('click',()=>{clearInterval(iv);iv=null;left=len*60;ts.textContent='ready';go.textContent='Start sprint';paint()});
+  paint();exUpd();
+})();
+
+/* ---------- chronotype ---------- */
+(()=>{const svg=$('#ch-svg'),X0=50,X1=700,Y0=220,Y1=30,h0=6,h1=26;
+  const T={am:{n:'AM-shifted',c:'--signal',w:[7,10.5],d:'About a quarter of people. Cortisol spikes early, focus peaks right away, then steadily fades. Put your sprints first thing and protect your mornings.',f:h=>h<5.5?.1:1/(1+Math.exp(-(h-6.2)*3))*Math.max(.15,1-(h-8.5)*.055)},
+    bi:{n:'Biphasic',c:'--leaf',w:[9.5,12],w2:[16.5,18.5],d:'The majority. Groggy for the first hour, then a strong late-morning peak, the deepest afternoon dip of the three types, and a second wind later. Sprint mid-morning; save LITs for the slump.',f:h=>(.34+.58*Math.exp(-((h-10.8)**2)/4.5)+.36*Math.exp(-((h-17.6)**2)/3.2)-.08*Math.exp(-((h-14.6)**2)/1.6))*(1-.5*Math.exp(-((h-6)**2)/1.6))*(h>20?Math.max(.35,1-(h-20)*.11):1)},
+    pm:{n:'PM-shifted',c:'--calm',w:[20,23.5],d:'About 16% of people, Yousef and Steven among them. Energy climbs through the day and peaks in the evening. She links this type with creativity. Push important meetings as late as you can; Steven never records before 11 a.m.',f:h=>.12+.85/(1+Math.exp(-(h-15.5)*.55))*(h>24.5?Math.max(0,1-(h-24.5)*.5):1)}};
+  const x=h=>X0+(h-h0)/(h1-h0)*(X1-X0),y=v=>Y0-Math.max(0,Math.min(1,v))*(Y0-Y1);
+  function path(f){let d='';for(let h=h0;h<=h1;h+=.1)d+=(d?'L':'M')+x(h).toFixed(1)+','+y(f(h)).toFixed(1);return d}
+  function render(k){const t=T[k];let s='';
+    const band=w=>`<rect x="${x(w[0])}" y="${Y1-6}" width="${x(w[1])-x(w[0])}" height="${Y0-Y1+6}" fill="var(${t.c})" opacity=".14" rx="4"/>`;
+    s+=band(t.w);if(t.w2)s+=band(t.w2);
+    for(let h=6;h<=26;h+=2){s+=`<line x1="${x(h)}" x2="${x(h)}" y1="${Y1}" y2="${Y0}" stroke="var(--rule)" stroke-width="1"/>`;const hh=h%24,lab=hh===0?'12a':hh===12?'12p':hh<12?hh+'a':(hh-12)+'p';s+=`<text x="${x(h)}" y="${Y0+18}" text-anchor="middle">${lab}</text>`}
+    s+=`<text x="${X0-8}" y="${Y1+4}" text-anchor="end">high</text><text x="${X0-8}" y="${Y0}" text-anchor="end">low</text>`;
+    Object.entries(T).forEach(([kk,tt])=>{const on=kk===k;s+=`<path d="${path(tt.f)}" fill="none" stroke="var(${tt.c})" stroke-width="${on?4:2}" opacity="${on?1:.35}" stroke-linecap="round"/>`});
+    s+=`<text x="${(x(t.w[0])+x(t.w[1]))/2}" y="${Y1-10}" text-anchor="middle" style="font-weight:700;fill:var(--ink)">sprint here</text>`;
+    svg.innerHTML=s;$('#ch-name').textContent=t.n;$('#ch-desc').textContent=t.d}
+  const f=$('#quiz');f.addEventListener('change',()=>{const v=['q1','q2','q3'].map(q=>(f.querySelector(`input[name=${q}]:checked`)||{}).value).filter(Boolean);if(!v.length)return;
+    const c={am:0,bi:0,pm:0};v.forEach(a=>c[a]++);const k=Object.keys(c).sort((a,b)=>c[b]-c[a]||(a==='bi'?-1:1))[0];render(k)});
+  render('bi');$('#ch-name').textContent='Biphasic (example: the most common type)';
+})();
+})();
+</script>
+
+</body>
+</html>
