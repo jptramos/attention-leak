@@ -137,7 +137,7 @@ h3.sub{font-size:clamp(28px,2.4vw + 12px,40px);margin:64px 0 16px;font-weight:50
 .step .card{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px 22px;box-shadow:0 10px 30px -18px rgba(20,25,40,.35);opacity:.38;transition:opacity .4s, transform .4s;transform:translateY(8px)}
 .step.on .card{opacity:1;transform:none}
 .step .card p:last-child{margin:0}
-.step .card .kicker{display:block;margin-bottom:6px}
+.step .card .slab{display:block;margin-bottom:6px;font-family:var(--text);font-style:italic;font-size:18px;color:var(--ink-2)}
 @media (max-width:900px){
   .scrolly{grid-template-columns:1fr}
   .scrolly .fig{top:calc(env(safe-area-inset-top,0px));height:58vh;z-index:0;background:var(--paper)}
@@ -415,10 +415,10 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       </div>
     </div>
     <div class="steps">
-      <div class="step"><div class="card"><span class="kicker">The input</span><p>Every second, your senses take in far more than you can use. About a third of the cortex is devoted to looking and listening. The brain evolved to watch for predators, so it notices anything that moves or makes noise.</p></div></div>
-      <div class="step"><div class="card"><span class="kicker">The gate</span><p>Attention is a narrow gate. Yousef calls the brain a <strong>monotasking machine</strong>: it can truly focus on one thing at a time.</p></div></div>
-      <div class="step"><div class="card"><span class="kicker">The law</span><p><strong>“You cannot remember anything that you do not attend to.”</strong> Only what passes the gate can become memory. And another word for memory is <em>learning</em>.</p></div></div>
-      <div class="step"><div class="card"><span class="kicker">The leak</span><p>Now add pings, buzzes, badges and open tabs. They crowd the gate. Less gets through, so less is remembered. In Yousef's words, any distraction that cuts your focus is also cutting your memory.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The input</span><p>Every second, your senses take in far more than you can use. About a third of the cortex is devoted to looking and listening. The brain evolved to watch for predators, so it notices anything that moves or makes noise.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The gate</span><p>Attention is a narrow gate. Yousef calls the brain a <strong>monotasking machine</strong>: it can truly focus on one thing at a time.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The law</span><p><strong>“You cannot remember anything that you do not attend to.”</strong> Only what passes the gate can become memory. And another word for memory is <em>learning</em>.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The leak</span><p>Now add pings, buzzes, badges and open tabs. They crowd the gate. Less gets through, so less is remembered. In Yousef's words, any distraction that cuts your focus is also cutting your memory.</p></div></div>
     </div>
   </div>
 
@@ -429,7 +429,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="col">
     <div class="nugget" style="--c:var(--noise)">
       <q>Attention and memory are impossible to divorce. You cannot remember anything that you do not attend to.</q>
-      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="You can't remember anything you didn't pay attention to. Attention isn't a productivity hack. It's the gate to memory and learning. (Dr. Sahar Yousef, UC Berkeley, on The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="You can't remember anything you didn't pay attention to. Attention is the gate to memory. Nothing gets remembered that didn't get through. (Dr. Sahar Yousef, UC Berkeley, on The Diary of a CEO)">Copy for X</button></div>
     </div>
     <h3 class="sub">The executive in the glass box</h3>
     <p>Yousef used to shadow executives for days before redesigning how they worked. One case she still talks about. It was a boss at a Fortune 10 company, working on a board deck in his glass office.</p>
@@ -451,9 +451,9 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       </div>
     </div>
     <div class="steps">
-      <div class="step"><div class="card"><span class="kicker">The setup</span><p>A very smart person who controls billions of dollars, assembling data for a big board decision. He sits in a glass box in the middle of a busy floor.</p></div></div>
-      <div class="step"><div class="card"><span class="kicker">The pile-on</span><p>His inbox is open on a second monitor. Two phones, work and personal, lie face up by the keyboard. His Apple Watch buzzes along with them. Colleagues walk past the glass, and his chief of staff pops in with a reminder.</p></div></div>
-      <div class="step"><div class="card"><span class="kicker">The result</span><p>“He probably got 30 seconds.” He was not unusual. Research by Gloria Mark puts the average knowledge worker at <strong>47 seconds</strong> on one screen before switching.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The setup</span><p>A very smart person who controls billions of dollars, assembling data for a big board decision. He sits in a glass box in the middle of a busy floor.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The pile-on</span><p>His inbox is open on a second monitor. Two phones, work and personal, lie face up by the keyboard. His Apple Watch buzzes along with them. Colleagues walk past the glass, and his chief of staff pops in with a reminder.</p></div></div>
+      <div class="step"><div class="card"><span class="slab">The result</span><p>“He probably got 30 seconds.” He was not unusual. Research by Gloria Mark puts the average knowledge worker at <strong>47 seconds</strong> on one screen before switching.</p></div></div>
     </div>
   </div>
 
@@ -461,7 +461,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <p>Yousef asks you to imagine you were handed a billion dollars to cure cancer and could hire the best minds alive. Would you give them smartwatches, Slack and a calendar full of calls? Or would you protect their best thinking?</p>
     <p>She calls the work <strong>digital hygiene</strong>. The first job is to clear away what is in the way.</p>
     <h3 class="sub">Multitasking is a myth. Test it yourself.</h3>
-    <p>Steven called himself a “very proud context switcher.” So she tested him on camera. He wrote “I'm a great multitasker” and the numbers 1 to 20, first one line at a time, then alternating: letter, number, letter, number. Here is a tap version you can do in a minute.</p>
+    <p>Steven called himself a “very proud context switcher.” So she tested him on camera. He wrote “I'm a great multitasker” and the numbers 1 to 20, first one line at a time, then alternating: letter, number, letter, number. The version below takes a minute.</p>
   </div>
 
   <div class="lab-box" id="switch" style="--c:var(--noise);border:0;background:transparent;padding-inline:0">
@@ -490,18 +490,18 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
 
   <div class="col">
     <p>Steven finished the first round in 31 seconds. In the switching round, after 30 seconds he had only reached the number 8. “I forgot to count,” he said mid-test, and “where was I?” By his own math, he was working about 60% slower.</p>
-    <p>That “where was I?” feeling has a name. Yousef calls it <strong>attentional baggage</strong>: you carry the last task into the next one, so you're never fully in either. Her fix: finish the thing, close the tab, then start the next one.</p>
+    <p>That “where was I?” feeling has a name. Yousef calls it <strong>attentional baggage</strong>: you carry the last task into the next one, so you're never fully in either. Her fix is to finish the thing and close the tab before you start the next one.</p>
     <div class="stats">
       <div class="stat" style="--c:var(--noise)"><b>47 s</b><span>average time on one screen before switching (Gloria Mark)</span></div>
       <div class="stat" style="--c:var(--noise)"><b>~60%</b><span>slower when Steven alternated two easy tasks</span></div>
       <div class="stat" style="--c:var(--noise)"><b>2+ hrs</b><span>per day lost bouncing between screens, by the estimate Yousef cites</span></div>
     </div>
-    <div class="nugget" style="--c:var(--noise)">
+    <div class="nugget" style="border-left:0;padding-left:0;background:transparent;--c:var(--noise)">
       <q>Every single time you switch your attention, you pay for it.</q>
-      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="Multitasking is a myth. On camera, Steven Bartlett did a simple task in 31 seconds. Alternating two tasks, he got less than halfway in the same time. Every switch has a cost. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef</span><button class="copyx" data-x="Multitasking is a myth. On camera, Steven Bartlett did a 20-item task in 31 seconds. Alternating two tasks, he got less than halfway in the same time. Every switch has a cost. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
     </div>
   </div>
-  <div class="closer"><p>Every switch costs twice, once in speed and again in memory.</p></div>
+  <div class="closer"><p>A switch costs you the time, and then it costs you the memory.</p></div>
 </section>
 
 <!-- ================= PART II ================= -->
@@ -513,20 +513,20 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
   <div class="col">
     <p class="lede" style="--c:var(--signal)">Start with who gets paid when you lose focus. A company that sells messaging software renews its contract by showing engagement: look how much everyone uses us. So the defaults on your phone, your email and your apps are tuned for engagement, not for your productivity.</p>
-    <p>Yousef is blunt about who does the tuning: “people like me.” Cognitive and behavioral neuroscientists test everything, from the sound an email makes when it sends to the exact feel of a vibration.</p>
+    <p>Yousef says who does the tuning: “people like me.” Cognitive and behavioral neuroscientists test everything, from the sound an email makes when it sends to the exact feel of a vibration.</p>
     <div class="nugget" style="--c:var(--signal)">
       <q>I am better than the default settings. The default settings are not there to help you.</q>
       <div class="who"><span>Dr. Sahar Yousef's mantra</span><button class="copyx" data-x="A neuroscientist's mantra: 'I am better than the default settings.' Your phone, email and apps ship tuned for engagement, not for your productivity. Change them. (Dr. Sahar Yousef on The Diary of a CEO)">Copy for X</button></div>
     </div>
-    <p>Then she makes the comparison that frames the whole conversation. The tech industry copied the food industry's three-part playbook almost exactly.</p>
+    <p>Then she brings up food. The tech industry copied the food industry's three-part playbook almost exactly.</p>
   </div>
 
   <div class="split">
-    <figure style="margin:0"><img class="plate" src="img/playbook.webp" alt="Watercolor of a bright lollipop beside a phone covered in saturated app icons." width="1400" height="875"><figcaption class="pcap">Same recipe, different aisle.</figcaption></figure>
+    <figure style="margin:0"><img class="plate" src="img/playbook.webp" alt="Watercolor of a bright lollipop beside a phone covered in saturated app icons." width="1400" height="875"><figcaption class="pcap">The same recipe. Candy on the left, candy on the right.</figcaption></figure>
     <div class="tight">
       <p class="kicker" style="color:var(--signal)">The shared recipe</p>
       <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,34px);line-height:1.2">Take a real human need. Then turn three dials.</p>
-      <p>Food meets a need to eat. Social media meets a need to connect and to learn something new. Neither need is the problem. The dials are.</p>
+      <p>Food meets a need to eat. Social media meets a need to connect and to learn something new. The need is fine. Somebody turned the dials.</p>
     </div>
   </div>
 
@@ -541,7 +541,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
 
   <div class="col">
     <h3 class="sub">The feed knows when you are about to leave</h3>
-    <p>Humans get more hooked on rewards that are unpredictable. It is the same mechanism behind slot machines, and, Yousef says, behind love-bombing in toxic relationships. Her account of the algorithm: it holds back the content it knows you will love, serves you so-so posts while you are fresh, and plays the jackpot right before you would quit.</p>
+    <p>Humans get more hooked on rewards that are unpredictable. It is the same mechanism behind slot machines, and, Yousef says, behind love-bombing in toxic relationships. The algorithm, as she describes it, holds back the content it knows you will love, serves you so-so posts while you are fresh, and plays the jackpot right before you would quit.</p>
   </div>
 
   <div class="lab-box" id="feed" style="--c:var(--signal)">
@@ -564,9 +564,9 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="col">
     <p>Distraction does not only come to us. We also go looking for it. When work gets hard, the brain does its job: it tries to solve the discomfort. Facing the problem is hard. Escaping is one tap away. The phone has become, in Yousef's words, a fast and cheap exit from reality.</p>
     <p>Steven brought up a 2014 study (Wilson and colleagues, <em>Science</em>, 2014). People left alone with their thoughts for 15 minutes could press a button to give themselves a mild electric shock, one they had said they would pay to avoid. In the paper's numbers, 67% of the men and 25% of the women pressed it anyway, and one man did it 190 times.</p>
-    <p>Yousef's answer, and it matters: <strong>no shame.</strong> “You have literally hundreds of experts that have designed these tools to be as addictive as they are.” A brain that gets hooked is working as designed. The question is what you do next.</p>
+    <p>Yousef's answer is <strong>no shame.</strong> “You have literally hundreds of experts that have designed these tools to be as addictive as they are.” A brain that gets hooked is working as designed. The question is what you do next.</p>
   </div>
-  <div class="closer"><p>You didn't lose a fair fight. Hundreds of experts were on the other side.</p></div>
+  <div class="closer"><p>There were hundreds of people on the other side of that fight.</p></div>
 </section>
 
 <!-- ================= PART III ================= -->
@@ -578,7 +578,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="col">
-    <p class="lede" style="--c:var(--leaf)">The fix starts with a story Steven told. Kevin O'Leary once described Steve Jobs to him as someone who could always separate the <strong>signal</strong>, the one thing that matters today, from the <strong>noise</strong>, which is everything else. Jony Ive put it more sharply: focus means saying no to an idea you know is brilliant, because it isn't what you're working on.</p>
+    <p class="lede" style="--c:var(--leaf)">Steven got there first, with a story. Kevin O'Leary once described Steve Jobs to him as someone who could always separate the <strong>signal</strong>, the one thing that matters today, from the <strong>noise</strong>, which is everything else. Jony Ive put it more sharply: focus means saying no to an idea you know is brilliant, because it isn't what you're working on.</p>
     <p>Yousef then asked Steven a question. You can turn up the signal or turn down the noise. Which is easier? “Decreasing the noise,” he said. She agreed. So the plan has an order: fix the foundation, turn the noise down, then turn the signal up.</p>
   </div>
 
@@ -639,12 +639,12 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="col">
-    <p><strong>4. Put the phone out of sight.</strong> Steven locked his in a box at the start of the interview. You don't need a box. Distance does it. Yousef's analogy: you wouldn't set a beer in front of someone trying to get sober. Steven's version: he doesn't keep Skittles in his pocket, because he would eat them every time he got bored.</p>
+    <p><strong>4. Put the phone out of sight.</strong> Steven locked his in a box at the start of the interview. You don't need a box. Distance does it. Yousef compares it to setting a beer in front of someone trying to get sober. Steven's is Skittles. He doesn't keep them in his pocket, because he'd eat them every time he got bored.</p>
     <p><strong>5. Choose long form over short form, and real people over feeds.</strong> Yousef is not anti-screen. A good film has been shown to build empathy in young people. Too much short form, she argues, leaves people more anxious and less sharp. Watching a movie? Watch the movie, without the phone.</p>
-    <p>Under both is a real need. If the hunger is connection, feed it with people: dinners, conversations, touch. Do that, she says, and you'll find you crave the feed less. Steven added Jack Dorsey's old metric for Twitter, <em>regrettable minutes</em>: did that hour leave you better off?</p>
-    <div class="nugget" style="--c:var(--leaf)">
+    <p>Both sit on a need that's real enough. If the hunger is connection, feed it with people: dinner with people who talk back. Do that, she says, and you'll find you crave the feed less. Steven added Jack Dorsey's old metric for Twitter, <em>regrettable minutes</em>: did that hour leave you better off?</p>
+    <div class="nugget" style="border-left:0;padding-left:0;background:transparent;--c:var(--leaf)">
       <q>Put your phone in gray. People spent one hour less on their phones every day. That's seven hours a week.</q>
-      <div class="who"><span>Dr. Sahar Yousef, on her lab's three-week test (independent studies have found smaller effects)</span><button class="copyx" data-x="Easiest focus upgrade I've heard: turn your phone to grayscale. In Dr. Sahar Yousef's Berkeley lab, people who did it for 3 weeks used their phones about 1 hour less a day. Her lab's number; other studies find less. Still: time back. (via The Diary of a CEO)">Copy for X</button></div>
+      <div class="who"><span>Dr. Sahar Yousef, on her lab's three-week test (independent studies have found smaller effects)</span><button class="copyx" data-x="Easiest focus upgrade I've heard: turn your phone to grayscale. In Dr. Sahar Yousef's Berkeley lab, people who did it for 3 weeks used their phones about 1 hour less a day. That's her lab's number and other studies find less, but the direction holds. (via The Diary of a CEO)">Copy for X</button></div>
     </div>
 
     <h3 class="sub" style="color:var(--leaf)">Turn the signal up</h3>
@@ -655,18 +655,18 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <figure style="margin:0"><img class="plate" src="img/mountain.webp" alt="Watercolor of a blue mountain with a dotted switchback path climbing to the snowy summit and a tiny figure at the base." width="1400" height="918"><figcaption class="pcap">Pole pole: one step, then the next. The bigger gold dots are the cheese at each turn.</figcaption></figure>
     <div class="tight">
       <p class="kicker" style="color:var(--leaf)">6a · The what: your Everest</p>
-      <p>If you can't tell which of your 69 to-dos matters most, step back. Where do you want to be in five years? That is your Everest. Her way in: picture yourself on your deathbed at 110.</p>
+      <p>If you can't tell which of your 69 to-dos matters most, step back. Where do you want to be in five years? That is your Everest. She gets there by making you picture your deathbed, at 110.</p>
       <p>Steven tried it on air, eyes closed. First he noticed who was in the room, then what they thought of him. In under a minute he had three priorities: a big family, being a role model his kids could point to, and proof that his time here was a net positive for the planet. Yousef's own answer: to have loved deeply, and to have served.</p>
     </div>
   </div>
 
-  <div class="lab-box everest" style="--c:var(--leaf)">
+  <div class="lab-box everest" style="--c:var(--leaf);border:0;background:transparent;padding-inline:0">
     <div class="kicker">Try it · The deathbed question</div>
     <h3>At 110, looking back, what must have happened?</h3>
     <p class="intro">What do you need to have experienced, achieved or done to leave with a smile? Stays in this browser only.</p>
     <textarea id="everest" placeholder="I want to have…"></textarea>
     <p class="ui" style="margin-top:12px;font-size:15px;font-weight:600">Now write down the one to three tasks that would move you toward it today. Those are your MITs. Three is the limit, on purpose.</p>
-    <p class="ui small muted" style="margin-top:8px">Hospice nurse Bronnie Ware kept a log of what her dying patients regretted. The most common: not living a life true to themselves, and caring too much about what others thought.</p>
+    <p class="ui small muted" style="margin-top:8px">Hospice nurse Bronnie Ware kept a log of what her dying patients regretted. Top of the list was not living a life true to themselves, and caring too much about what others thought.</p>
   </div>
 
   <div class="col">
@@ -715,11 +715,11 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="col">
-    <div class="nugget" style="--c:var(--leaf)">
+    <div class="nugget" style="border-left:0;padding-left:0;background:transparent;--c:var(--leaf)">
       <q>The center point of your influence on this planet is the allocation of your time.</q>
-      <div class="who"><span>Steven Bartlett, quoting a line that stuck with him</span><button class="copyx" data-x="'The center point of your influence on this planet is the allocation of your time.' A line Steven Bartlett says stuck with him. Family, health, work: all downstream of where the hours go. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
+      <div class="who"><span>Steven Bartlett, quoting a line that stuck with him</span><button class="copyx" data-x="'The center point of your influence on this planet is the allocation of your time.' A line Steven Bartlett says stuck with him. Everything he wants is downstream of where the hours go. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
     </div>
-    <p>Yousef's point about timers is not pressure for its own sake. Condense the work and you get your evenings back, which is where the deathbed priorities live.</p>
+    <p>The timer isn't there to stress you. It compresses the work so you get your evenings back, which is where the deathbed priorities live.</p>
   </div>
 
   <div class="split">
@@ -740,11 +740,11 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     </div>
     <p class="ui small muted">Ranking as described in the episode. The page shows order only, not effect sizes.</p>
     <p>Yousef prefers systems to willpower. Can't do nothing? Use your hands. Skip the grab-and-go snacks: cut the cheese from the block, boil the kettle. If both hands are busy, you can't scroll. Steven's break is learning to DJ, which locks him in completely.</p>
-    <p>For hard problems, the same principle helps creativity. Load the problem fully, then <strong>walk away</strong>: shower, walk the dog, wash the dishes. A new setting loosens the networks stuck on the problem, and the idea shows up.</p>
+    <p>For hard problems, the same principle helps creativity. Load the problem fully, then <strong>walk away</strong>: shower, or walk the dog. A new setting loosens the networks stuck on the problem, and the idea shows up.</p>
   </div>
 
   <div class="split rev">
-    <figure style="margin:0"><img class="plate" src="img/sunmoon.webp" alt="Watercolor of a dotted arc across the sky from a rising sun, through a midday sun, to a crescent moon over a blue horizon." width="1400" height="787"><figcaption class="pcap">Three people, one sky, three best hours.</figcaption></figure>
+    <figure style="margin:0"><img class="plate" src="img/sunmoon.webp" alt="Watercolor of a dotted arc across the sky from a rising sun, through a midday sun, to a crescent moon over a blue horizon." width="1400" height="787"><figcaption class="pcap">The same day, timed three ways. The shaded band is when each type should do the hard thing.</figcaption></figure>
     <div class="tight">
       <p class="kicker" style="color:var(--leaf)">9 · The when: your chronotype</p>
       <p>Your attention span is not constant. You are a different version of yourself at 8 a.m., 2 p.m. and 8 p.m. Yousef describes three chronotypes, with the population shares she cites.</p>
@@ -752,7 +752,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     </div>
   </div>
 
-  <div class="lab-box" id="chrono" style="--c:var(--leaf)">
+  <div class="lab-box" id="chrono" style="--c:var(--leaf);border:0;background:transparent;padding-inline:0">
     <div class="kicker">Try it · Which one are you?</div>
     <h3>Three questions</h3>
     <form class="quiz" id="quiz">
@@ -777,7 +777,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       <p class="ui small muted" style="margin-top:6px">Curves are illustrative shapes drawn from her descriptions, not measured data. Shaded band = best window for focus sprints.</p>
     </div>
   </div>
-  <div class="closer"><p>Noise down first. Whatever attention is left, aim it at the mountain.</p></div>
+  <div class="closer"><p>Get the noise down. Then decide what the attention you got back is for.</p></div>
 </section>
 
 <!-- ================= STAKES ================= -->
@@ -806,7 +806,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <div class="tight">
       <p class="kicker" style="color:var(--calm)">Coda · How to get luckier</p>
       <p>The episode ends with a question left by the previous guest: how can the audience become more lucky?</p>
-      <p>Her answer is the page's argument, backwards. The mind is a focus machine that looks for evidence of what it already holds. Fill it with noise, or with a victim story, and you'll notice closed doors. Fill it with your Everest and today's next step, and you start spotting chances. That is turning the signal up.</p>
+      <p>Her answer was the same mechanism, run the other way. The mind is a focus machine that looks for evidence of what it already holds. Fill it with noise, or with a victim story, and you'll notice closed doors. Fill it with your Everest and today's next step, and you start spotting chances. That is turning the signal up.</p>
       <p>She headed off the obvious objection herself: this isn't just manifestation. Name the goal, keep it top of mind, and your brain starts noticing the openings. Then she tested it live. Steven named a dream guest, Barack Obama. Keep it top of mind, she told him, and one day you'll meet one of his former chiefs of staff by chance.</p>
       <p>The same wiring works against you if you ruminate: replaying a victim story only deepens that pathway. Her advice is to notice it, then redirect your attention to the story you want to feed.</p>
       <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,32px);line-height:1.2">“The world is not full of brick walls. Those brick walls are doors. They have handles.”</p>
@@ -819,17 +819,17 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="sheet">
     <div class="kicker" style="color:var(--signal)">The whole episode on one card</div>
     <h3>Your attention reset</h3>
-    <p style="position:relative;margin:0 0 10px;font-size:18px"><b>The problem:</b> brain fog has a cause. The average knowledge worker lasts about 47 seconds on one screen.</p>
+    <p style="position:relative;margin:0 0 10px;font-size:18px">Brain fog has a cause. The average knowledge worker lasts about 47 seconds on one screen.</p>
     <p style="position:relative;margin:0 0 14px;font-size:18px"><b>First, measure.</b> Yousef's institute offers free attention and digital-dependence tests at mmminstitute.org.</p>
     <ol id="sheet-list">
       <li><b>Sleep at least 7 hours.</b> Asking for a productivity edge on 5 hours is asking to tune an engine that's on fire.</li>
       <li><b>Turn your phone grayscale.</b> Color is part of the hook. In Yousef's lab test, people used their phones about an hour less a day.</li>
       <li><b>Notifications off, except VIPs.</b> If it would need a signature at your door, it can knock. Everything else goes in the mailbox.</li>
       <li><b>Phone out of sight when you focus.</b> You don't keep candy in your pocket when you're trying to eat less of it.</li>
-      <li><b>Long form over short form. Real people over feeds.</b> Feed the actual hunger: learning and connection.</li>
+      <li><b>Long form over short form. Real people over feeds.</b> What you're hungry for is learning and people.</li>
       <li><b>Picture yourself at 110.</b> What must have happened? That's your Everest. Then pick 1–3 tasks a day your future self will thank you for.</li>
       <li><b>Work in focus sprints.</b> Block the time, define the output, cut distractions, start a countdown, take a real break.</li>
-      <li><b>A real break is nature or nothing.</b> Scrolling between tasks is lifting lighter weights between sets.</li>
+      <li><b>A break means nothing coming in.</b> Nature if you can get it. Scrolling between tasks is lifting lighter weights between sets.</li>
       <li><b>Do your hardest thinking at your peak hour.</b> Morning person, night owl, or two peaks with a slump in between.</li>
       <li><b>One task at a time.</b> Every switch costs speed and memory. Close the tab before you open the next.</li>
     </ol>
@@ -849,7 +849,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 </section>
 
-<footer>Made for reading slowly. Then put the phone down.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef.</span></footer>
+<footer>Read slowly. Put the phone somewhere else afterwards.<br><span style="font-size:12px">Unofficial fan explainer. Not affiliated with The Diary of a CEO, Steven Bartlett or Dr. Sahar Yousef.</span></footer>
 
 <script>
 (()=>{
@@ -963,7 +963,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
   function show(){const[a,b]=times,m=Math.max(a,b);$('#st-t1').textContent=a.toFixed(1)+' s';$('#st-t2').textContent=b.toFixed(1)+' s';
     $('#st-result').classList.add('on');requestAnimationFrame(()=>{$('#st-b1').style.width=(100*a/m)+'%';$('#st-b2').style.width=(100*b/m)+'%'});
     const pct=Math.round((b/a-1)*100);
-    $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Impressive. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
+    $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
   go.addEventListener('click',()=>{if(go.textContent.startsWith('Try')){times=[];$('#st-result').classList.remove('on');$('#st-b1').style.width=0;$('#st-b2').style.width=0;begin(1)}else begin(times.length?2:1)});
   build(true);
 })();
@@ -981,7 +981,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
     if(isJ){b=12+Math.random()*8;jacks++}else b+=9+Math.random()*7;b=Math.min(b,thr-2);
     bore.style.width=b+'%';cnt.textContent=n+(n===1?' post':' posts');
     const bar=document.createElement('i');bar.style.height=(isJ?92:18+Math.random()*22)+'%';if(isJ)bar.className='j';spark.append(bar);if(spark.children.length>22)spark.firstChild.remove();
-    note.innerHTML=isJ?(jacks===1?'<strong>There it is.</strong> Right before you hit the line, the feed plays the post it was saving. Boredom resets. Keep going.':jacks===2?'Again, just before you would leave. It isn\'t luck. It is a schedule.':'<strong>You never decided to keep scrolling.</strong> The feed decided for you, every time you got close to the exit.'):(n<3?'Meh. Keep going.':'Meh. Your boredom is climbing toward the line where you\'d put the phone down.')}
+    note.innerHTML=isJ?(jacks===1?'<strong>There it is.</strong> Right before you hit the line, the feed plays the post it was saving. Boredom resets. Keep going.':jacks===2?'Again, just before you would leave. That timing is programmed.':'<strong>You never decided to keep scrolling.</strong> The feed decided for you, every time you got close to the exit.'):(n<3?'Meh. Keep going.':'Meh. Your boredom is climbing toward the line where you\'d put the phone down.')}
   function reset(){scr.innerHTML='';spark.innerHTML='';b=0;n=0;jacks=0;cur=null;bore.style.width=0;cnt.textContent='0 posts';note.textContent='Press scroll. Space or the down arrow works too.';const d=card(false);d.querySelector('h4').textContent='Your feed';d.querySelector('.tag').textContent='Home';scr.append(d);cur=d}
   $('#feed-next').addEventListener('click',next);$('#feed-reset').addEventListener('click',reset);
   $('#feed').addEventListener('keydown',e=>{if((e.key===' '||e.key==='ArrowDown')&&e.target.tagName!=='TEXTAREA'){e.preventDefault();next()}});
@@ -997,7 +997,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
 
 /* ---------- VIP sorter ---------- */
 (()=>{const items=[
-  ['Partner','Car broke down. Call me when you can.','k','A VIP and a real fire. Let it knock.'],
+  ['Partner','Car broke down. Call me when you can.','k','A VIP, and the car\'s actually broken. Let it knock.'],
   ['Reply-all, 9 people','“Thanks everyone!”','m','No action needed from you. Mailbox.'],
   ['Your boss\'s boss','Mentions you by name: “Sahar, can you confirm?”','k','A VIP plus your name as a keyword. Knock.'],
   ['Team chat · #random','Someone posted a gif','m','Fun, never urgent. Mailbox.'],
@@ -1019,7 +1019,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
     b.addEventListener('click',()=>{if(sel.has(i)){sel.delete(i)}else{if(sel.size>=3){b.classList.remove('no');void b.offsetWidth;b.classList.add('no');note.textContent='Three is the maximum. That limit is the point.';return}sel.add(i)}
       b.classList.toggle('on',sel.has(i));b.setAttribute('aria-pressed',sel.has(i));b.querySelector('small').textContent=sel.has(i)?'MIT':'tap';
       const lits=[...sel].filter(j=>t[j][1]==='LIT').length;
-      note.textContent=!sel.size?'':lits?`One of your picks is a LIT: fast dopamine, quick to tick off. Save it for a 15-minute gap between meetings.`:sel.size===3?'Good list. Give your best uninterrupted hour to the first one.':`${sel.size} chosen. Ask: will my future self thank me for this?`});g.append(b)});
+      note.textContent=!sel.size?'':lits?`One of your picks is a LIT: fast dopamine, quick to tick off. Save it for a 15-minute gap between meetings.`:sel.size===3?'Three. Give your best hour to the first.':`${sel.size} chosen. Ask: will my future self thank me for this?`});g.append(b)});
 })();
 
 /* ---------- Everest ---------- */
@@ -1028,7 +1028,7 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
 /* ---------- focus sprint ---------- */
 (()=>{const S=[['Block it','Put the sprint on your calendar in advance. Knowing it is coming lets your body warm up for it, like the butterflies before a talk. A visible calendar block also tells your team you are heads-down, which eases the guilt of not replying.'],
   ['Define the output','Not “work on the deck” but “finish slide 3 (7 min), email John for slide 17 data (3 min), build the table (15 min).” Pick one MIT and break it into timed pieces, or batch a set of LITs. Finishing pieces releases dopamine. Deciding the next step mid-sprint is where focus leaks.'],
-  ['Cut distractions','Phone out of sight, notifications off. If it is noisy, use headphones. Noise cancelling only for sprints, not all day, or real-world sound starts to feel overwhelming. Music without lyrics, or in a language you don\'t know. Keep one playlist just for focus, so your brain links it to work.'],
+  ['Cut distractions','Phone out of sight, notifications off. If it is noisy, use headphones. Noise cancelling only for sprints, not all day, or real-world sound starts to feel overwhelming. Music without lyrics, or in a language you don\'t know. Keep one playlist for focus only, so your brain links it to work.'],
   ['Set a timer','A visible countdown makes most mammals work faster. Think of a classroom cleanup song. Parkinson\'s law: work expands to fill the time you give it, so give it less.'],
   ['Take a real break','When the timer ends, stop. Look at nature or do nothing for a few minutes. No feeds. Then close the task cleanly before the next one, so you don\'t carry its baggage forward.']];
   const box=$('#sprint-steps'),det=$('#sdetail');
