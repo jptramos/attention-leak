@@ -754,7 +754,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="split rev">
-    <figure style="margin:0"><img class="plate" src="img/chrono.webp" alt="Watercolor of three energy curves across one day: an ochre curve peaking in the morning, a green curve with two peaks, and a blue curve rising to an evening peak, with a sun on the left and a crescent moon on the right." width="1400" height="700"><figcaption class="pcap">Three types, one day: morning peak, two peaks, evening peak.</figcaption></figure>
+    <figure style="margin:0"><img class="plate" src="img/chrono.webp" alt="Watercolor of three energy curves across one day: an ochre curve peaking in the morning, a green curve with two peaks, and a blue curve rising to an evening peak, with a sun on the left and a crescent moon on the right." width="1400" height="700"><figcaption class="pcap">Gold peaks early, green peaks twice, blue peaks at night.</figcaption></figure>
     <div class="tight">
       <p class="kicker" style="color:var(--leaf)">9 · Your chronotype</p>
       <p>Your attention span is not constant. You are a different version of yourself at 8 a.m., 2 p.m. and 8 p.m. Yousef describes three chronotypes, with the population shares she cites.</p>
@@ -975,12 +975,12 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
     $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
   const SHARE_ART=new Image();SHARE_ART.src='img/hero_share.webp';
   $('#st-save').addEventListener('click',()=>{const[a,b]=times;if(!a||!b)return;const c=document.createElement('canvas');c.width=1080;c.height=1080;const x=c.getContext('2d');
-    x.fillStyle='#F3F4EF';x.fillRect(0,0,1080,1080);x.fillStyle='#1A2030';const pct=Math.round((b/a-1)*100);const hi=SHARE_ART;try{if(hi.complete&&hi.naturalWidth){x.globalAlpha=.3;x.drawImage(hi,540,540,520,520*hi.naturalHeight/hi.naturalWidth);x.globalAlpha=1}}catch(e){}
-    x.fillStyle='#1A2030';x.font='italic 34px "Instrument Serif", Georgia, serif';x.fillText('The Attention Leak',80,130);x.font='96px "Instrument Serif", Georgia, serif';x.fillStyle='#C23F57';x.fillText(pct>0?'I was '+pct+'% slower.':'No slowdown.',80,270);x.fillStyle='#1A2030';x.fillText('Are you?',80,370);
+    x.fillStyle='#F3F4EF';x.fillRect(0,0,1080,1080);x.fillStyle='#1A2030';const pct=Math.round((b/a-1)*100);const hi=SHARE_ART;try{if(hi.complete&&hi.naturalWidth){x.globalAlpha=.3;x.drawImage(hi,600,610,460,460*hi.naturalHeight/hi.naturalWidth);x.globalAlpha=1}}catch(e){}
+    x.fillStyle='#1A2030';x.font='italic 34px "Instrument Serif", Georgia, serif';x.fillText('The Attention Leak',80,130);x.font='96px "Instrument Serif", Georgia, serif';x.fillStyle='#C23F57';x.fillText(pct>0?'I was '+pct+'% slower.':'No slowdown.',80,270);x.fillStyle='#1A2030';if(pct>0){x.fillText('Are you?',80,370)}else{x.font='56px "Instrument Serif", Georgia, serif';x.fillText('Now try it with the phone buzzing.',80,360)}
     x.fillStyle='#3A4152';x.font='30px Georgia, serif';x.fillText('Switching between two easy tasks',80,420);
     const m=Math.max(a,b),W=760;[[a,'One at a time','#34509A'],[b,'Switching','#C23F57']].forEach(([t,l,col],i)=>{const y=470+i*130;x.fillStyle='#3A4152';x.font='28px Georgia, serif';x.fillText(l+' · '+t.toFixed(1)+' s',80,y);x.fillStyle='#E3E5DD';x.fillRect(80,y+20,W,40);x.fillStyle=col;x.fillRect(80,y+20,W*t/m,40)});
-    x.fillStyle='#3A4152';x.font='30px Georgia, serif';x.fillText('Steven Bartlett on the show: about 60% slower.',80,820);
-    x.fillStyle='#646B7A';x.font='26px Georgia, serif';x.fillText('Try it: jptramos.github.io/attention-leak',80,960);x.fillText('After Dr. Sahar Yousef on The Diary of a CEO',80,1000);
+    x.fillStyle='#3A4152';x.font='30px Georgia, serif';x.fillText('Steven Bartlett on the show: about 60% slower.',80,905);
+    x.fillStyle='#646B7A';x.font='26px Georgia, serif';x.fillText('Try it: jptramos.github.io/attention-leak',80,985);x.fillText('After Dr. Sahar Yousef on The Diary of a CEO',80,1025);
     try{const a2=document.createElement('a');a2.download='my-switch-cost.png';a2.href=c.toDataURL('image/png');document.body.append(a2);a2.click();a2.remove();$('#st-save-note').textContent='Saved. If nothing downloaded, take a screenshot of the card above.'}catch(e){$('#st-save-note').textContent='Your browser blocked the download. Take a screenshot of the card above.'}});
   go.addEventListener('click',()=>{if(go.textContent.startsWith('Try')){times=[];$('#st-result').classList.remove('on');$('#st-b1').style.width=0;$('#st-b2').style.width=0;begin(1)}else begin(times.length?2:1)});
   build(true);
