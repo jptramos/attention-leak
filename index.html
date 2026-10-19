@@ -8,13 +8,13 @@
 <meta property="og:title" content="Steven Bartlett thought he could multitask. The test that proved he couldn't.">
 <meta property="og:description" content="You can't remember what you never noticed. An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO.">
 <meta property="og:url" content="https://jptramos.github.io/attention-leak/">
-<meta property="og:image" content="https://jptramos.github.io/attention-leak/img/hero_share.png">
+<meta property="og:image" content="https://jptramos.github.io/attention-leak/img/hero_share_text.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Steven Bartlett thought he could multitask. The test that proved he couldn't.">
 <meta name="twitter:description" content="You can't remember what you never noticed. An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO.">
-<meta name="twitter:image" content="https://jptramos.github.io/attention-leak/img/hero_share.png">
+<meta name="twitter:image" content="https://jptramos.github.io/attention-leak/img/hero_share_text.png">
 <title>The Attention Leak</title>
 <meta name="description" content="An illustrated, interactive guide to Dr. Sahar Yousef on The Diary of a CEO: why attention is the gate to memory, how it gets hijacked, and how to win it back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -373,7 +373,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div>
     <div class="kicker">The Diary of a CEO · Illustrated</div>
     <h1 style="margin-top:14px" id="headline">You can't remember what you never noticed.</h1>
-    <p class="deck">Neuroscientist Dr. Sahar Yousef explains why attention is the gate to memory, who's prying it open, and what actually closes it again.</p>
+    <p class="deck">Attention is the gate to memory. Somebody is holding it open for a living. Neuroscientist Dr. Sahar Yousef on how to shut it.</p>
     <div class="byline"><span>Conversation: <b>Steven Bartlett</b> (@StevenBartlett) × <b>Dr. Sahar Yousef</b>, UC Berkeley</span><span>20-minute read · 10 fixes · 7 things to try</span><span><a href="https://youtu.be/yePLuwL3FbM" target="_blank" rel="noopener">Watch the episode ↗</a></span></div>
   </div>
   <div class="hero-art"><img class="plate" src="img/hero.webp" alt="Watercolor of a head in profile. A warm glow sits where the mind is and a beam of light shines forward from the eyes, while red dots crowd the edges like notifications." width="1400" height="962"></div>
@@ -387,7 +387,43 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     <a class="pillar" href="#cause" style="--c:var(--signal)"><span class="n">II. The cause</span><h3>The playbook came from junk food</h3><p>More stimulation, less friction, less satisfaction. Tech copied the recipe that got us hooked on sugar.</p></a>
     <a class="pillar" href="#fix" style="--c:var(--leaf)"><span class="n">III. The fix</span><h3>Run it in reverse</h3><p>Sleep, then less noise, then more signal. Grayscale, VIP-only alerts, focus sprints and proper breaks.</p></a>
   </div>
-  <p class="ui" style="margin:18px 0 0;font-size:14px"><a href="#switch">Or start with the test that caught Steven ↓</a> &nbsp;·&nbsp; <a href="#card">In a hurry? Jump to the one-card version ↓</a></p>
+  <p class="ui" style="margin:18px 0 0;font-size:14px"><a href="#problem">Scroll for the full explainer ↓</a> &nbsp;·&nbsp; <a href="#card">In a hurry? Jump to the one-card version ↓</a></p>
+</section>
+
+<section class="part" id="test" style="--c:var(--noise);padding-top:56px">
+  <div class="col">
+    <h3 class="sub">Multitasking is a myth. Test it yourself.</h3>
+    <p>Steven called himself a “very proud context switcher.” So she tested him on camera. He wrote “I'm a great multitasker” and the numbers 1 to 20, first one line at a time, then alternating: letter, number, letter, number. The version below takes a minute.</p>
+  </div>
+
+  <div class="lab-box" id="switch" style="--c:var(--noise);border:0;background:transparent;padding-inline:0">
+    <div class="kicker">Switch cost</div>
+    <h3>Two rounds, same 20 tiles</h3>
+    <p class="intro">Round 1: tap the letters A to J, then the numbers 1 to 10. Round 2: alternate, A 1 B 2 C 3 and so on. Tap as fast as you can. The clock starts on your first tap.</p>
+    <div class="st-wrap">
+      <div class="st-board locked" id="st-board" aria-live="off"></div>
+      <div class="st-side">
+        <div class="st-task" id="st-task"><b>Ready?</b>Press start for round 1.</div>
+        <div class="st-clock" id="st-clock">0.0<span class="muted" style="font-size:20px"> s</span></div>
+        <div class="st-trail" id="st-trail" aria-live="polite"></div>
+        <div class="row" style="margin-top:14px"><button class="btn" id="st-go">Start round 1</button></div>
+      </div>
+    </div>
+    <div class="st-result" id="st-result" aria-live="polite">
+      <div class="brand"><span>My switch cost</span><span>The Attention Leak · after Dr. Sahar Yousef on DOAC</span></div>
+      <div class="st-bars">
+        <div class="st-bar"><span>One at a time</span><div class="t"><i id="st-b1" style="background:var(--calm)"></i></div><b id="st-t1">–</b></div>
+        <div class="st-bar"><span>Switching</span><div class="t"><i id="st-b2" style="background:var(--noise)"></i></div><b id="st-t2">–</b></div>
+      </div>
+      <p id="st-verdict" style="font-size:19px"></p>
+      <p class="ui small muted" style="margin:0 0 10px">Steven on the show: 31 s focused; switching, he reached only 8 in 30 s.</p>
+      <button class="btn ghost" id="st-save" type="button">Save my result as an image</button> <span class="ui small muted" id="st-save-note"></span>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Steven finished the first round in 31 seconds. In the switching round, after 30 seconds he had only reached the number 8. “I forgot how to count,” he said mid-test, and “where was I?” By his own math, he was working about 60% slower.</p>
+  </div>
 </section>
 
 <!-- ================= PART I ================= -->
@@ -416,7 +452,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
     </div>
     <div class="steps">
       <div class="step"><div class="card"><p>Every second, your senses take in far more than you can use. About a third of the cortex is devoted to looking and listening. The brain evolved to watch for predators, so it notices anything that moves or makes noise.</p></div></div>
-      <div class="step"><div class="card"><p>Attention is a narrow gate. Yousef calls the brain a <strong>monotasking machine</strong>: it can truly focus on one thing at a time.</p></div></div>
+      <div class="step"><div class="card"><p>Attention is a narrow gate. Yousef calls the brain a <strong>monotasking machine</strong>. It can only focus on one thing at a time.</p></div></div>
       <div class="step"><div class="card"><p><strong>“You cannot remember anything that you do not attend to.”</strong> Only what passes the gate can become memory. And another word for memory is <em>learning</em>.</p></div></div>
       <div class="step"><div class="card"><p>Now add pings, buzzes, badges and open tabs. They crowd the gate. Less gets through, so less is remembered. In Yousef's words, any distraction that cuts your focus is also cutting your memory.</p></div></div>
     </div>
@@ -460,37 +496,9 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="col">
     <p>Yousef asks you to imagine you were handed a billion dollars to cure cancer and could hire the best minds alive. Would you give them smartwatches, Slack and a calendar full of calls? Or would you protect their best thinking?</p>
     <p>She calls the work <strong>digital hygiene</strong>. The first job is to clear away what is in the way.</p>
-    <h3 class="sub">Multitasking is a myth. Test it yourself.</h3>
-    <p>Steven called himself a “very proud context switcher.” So she tested him on camera. He wrote “I'm a great multitasker” and the numbers 1 to 20, first one line at a time, then alternating: letter, number, letter, number. The version below takes a minute.</p>
-  </div>
-
-  <div class="lab-box" id="switch" style="--c:var(--noise);border:0;background:transparent;padding-inline:0">
-    <div class="kicker">Switch cost</div>
-    <h3>Two rounds, same 20 tiles</h3>
-    <p class="intro">Round 1: tap the letters A to J, then the numbers 1 to 10. Round 2: alternate, A 1 B 2 C 3 and so on. Tap as fast as you can. The clock starts on your first tap.</p>
-    <div class="st-wrap">
-      <div class="st-board locked" id="st-board" aria-live="off"></div>
-      <div class="st-side">
-        <div class="st-task" id="st-task"><b>Ready?</b>Press start for round 1.</div>
-        <div class="st-clock" id="st-clock">0.0<span class="muted" style="font-size:20px"> s</span></div>
-        <div class="st-trail" id="st-trail" aria-live="polite"></div>
-        <div class="row" style="margin-top:14px"><button class="btn" id="st-go">Start round 1</button></div>
-      </div>
-    </div>
-    <div class="st-result" id="st-result" aria-live="polite">
-      <div class="brand"><span>My switch cost</span><span>The Attention Leak · after Dr. Sahar Yousef on DOAC</span></div>
-      <div class="st-bars">
-        <div class="st-bar"><span>One at a time</span><div class="t"><i id="st-b1" style="background:var(--calm)"></i></div><b id="st-t1">–</b></div>
-        <div class="st-bar"><span>Switching</span><div class="t"><i id="st-b2" style="background:var(--noise)"></i></div><b id="st-t2">–</b></div>
-      </div>
-      <p id="st-verdict" style="font-size:19px"></p>
-      <p class="ui small muted" style="margin:0 0 10px">Steven on the show: 31 s focused; switching, he reached only 8 in 30 s.</p>
-      <button class="btn ghost" id="st-save" type="button">Save my result as an image</button> <span class="ui small muted" id="st-save-note"></span>
-    </div>
   </div>
 
   <div class="col">
-    <p>Steven finished the first round in 31 seconds. In the switching round, after 30 seconds he had only reached the number 8. “I forgot how to count,” he said mid-test, and “where was I?” By his own math, he was working about 60% slower.</p>
     <p>That “where was I?” feeling has a name. Yousef calls it <strong>attentional baggage</strong>: you carry the last task into the next one, so you're never fully in either. Her fix is to finish the thing and close the tab before you start the next one.</p>
     <div class="stats">
       <div class="stat" style="--c:var(--noise)"><b>47 s</b><span>average time on one screen before switching (Gloria Mark)</span></div>
@@ -584,7 +592,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="split">
     <figure style="margin:0"><img class="plate" src="img/carfire.webp" alt="Watercolor of a blue car with flames rising from the hood." width="1400" height="875"><figcaption class="pcap">Five hours of sleep, asking for a tune-up.</figcaption></figure>
     <div class="tight">
-      <p class="kicker" style="color:var(--leaf)">1 · The foundation</p>
+      <p class="kicker" style="color:var(--leaf)">1 · Sleep</p>
       <h3 style="font-size:clamp(28px,2.4vw + 12px,40px);margin-bottom:12px">Sleep at least 7 hours</h3>
       <p>Founders come to Yousef asking for a 1% edge on five hours of sleep a night. She compares it to a car brought in for a performance tune-up while the engine is on fire. Put the fire out first.</p>
       <p>Short sleep hurts thinking and emotional control. Until it is fixed, she can't even measure your baseline.</p>
@@ -653,7 +661,7 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   <div class="split">
     <figure style="margin:0"><img class="plate" src="img/mountain.webp" alt="Watercolor of a blue mountain with a dotted switchback path climbing to the snowy summit and a tiny figure at the base." width="1400" height="918"><figcaption class="pcap">Pole pole: one step, then the next. The bigger gold dots are the cheese at each turn.</figcaption></figure>
     <div class="tight">
-      <p class="kicker" style="color:var(--leaf)">6a · The what: your Everest</p>
+      <p class="kicker" style="color:var(--leaf)">6 · Your Everest</p>
       <p>If you can't tell which of your 69 to-dos matters most, step back. Where do you want to be in five years? Steven called it your Everest, and she took the word and ran with it. She gets there by making you picture your deathbed, at 110.</p>
       <p>Steven tried it on air, eyes closed. First he noticed who was in the room, then what they thought of him. He came out with three priorities: a big family, being a role model his kids could point to, and proof that his time here was a net positive for the planet. Yousef's own answer: to have loved deeply, and to have served.</p>
     </div>
@@ -673,19 +681,22 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
       <q>Family, and having a big family. Being a good role model to them. And them having evidence that me being here was net positive.</q>
       <div class="who"><span>Steven Bartlett, on what he saw at his deathbed</span><button class="copyx" data-x="@StevenBartlett tried the deathbed exercise live: picture yourself at 110. Who's in the room? What do they think of you? His answer: a big family, being a role model, proof his time here was net positive. (The Diary of a CEO, with Dr. Sahar Yousef)">Copy for X</button></div>
     </div>
-    <p class="kicker" style="color:var(--leaf);margin-top:48px">6b · The what: MITs, not LITs</p>
+    <p class="kicker" style="color:var(--leaf);margin-top:48px">Your MITs</p>
     <p>Each morning, treat your to-do list like a fridge. How much focus time do you have today? Then pick one to three <strong>MITs</strong>, most important tasks: the ones that would make today a success. Her lab has studied another way to ask it: “What will your future self thank you for?”</p>
-    <p>Everything else is a <strong>LIT</strong>, least important task: the DocuSign, the toilet paper order. LITs feel good because they give fast dopamine. They fill the gaps between meetings. Your best uninterrupted hour goes to an MIT.</p>
+    <p>Everything else is a <strong>LIT</strong>, a least important task, like the DocuSign or the toilet-paper order. LITs feel good because they give fast dopamine. They fill the gaps between meetings. Your best uninterrupted hour goes to an MIT.</p>
   </div>
 
-  <div class="col">
+  <div class="split rev">
+    <figure style="margin:0"><img class="plate" src="img/maze.webp" alt="Watercolor maze with a grey mouse at the start, a wedge of cheese at the end and gold crumbs along the route." width="1400" height="1026"><figcaption class="pcap">Crumbs along the route, so the next step is never in doubt.</figcaption></figure>
+    <div class="tight">
       <p style="font-family:var(--display);font-size:clamp(24px,2vw + 12px,34px);line-height:1.2">Sprinkle the cheese through the maze.</p>
       <p>An MIT is a long maze with a big hunk of cheese at the end. A LIT is a crumb right in front of you. So break the MIT into crumbs, each one paying out a little progress.</p>
       <p>Kilimanjaro guides told Yousef's husband the same thing: <em>pole pole</em>, Swahili for “slowly, slowly.” Steven's version comes from cycling coach Sir Dave Brailsford: <strong>pedals over podiums.</strong> Once British Cycling broke its goals into tiny ones, Brailsford told him, people stopped leaving at 5 p.m. and stayed until 1 a.m. They felt they were going somewhere. Steven calls it the <strong>progress principle</strong>.</p>
+    </div>
   </div>
 
   <div class="col">
-    <p class="kicker" style="color:var(--leaf);margin-top:48px">7 · The how: the focus sprint</p>
+    <p class="kicker" style="color:var(--leaf);margin-top:48px">7 · The focus sprint</p>
     <p>Yousef's method for deep work. Her lab found it helps people get up to twice as much done, with fewer mistakes. It has five steps.</p>
   </div>
 
@@ -743,9 +754,9 @@ footer{padding-block:80px 60px;text-align:center;font-family:var(--ui);font-size
   </div>
 
   <div class="split rev">
-    <figure style="margin:0"><img class="plate" src="img/sunmoon.webp" alt="Watercolor of a dotted arc across the sky from a rising sun, through a midday sun, to a crescent moon over a blue horizon." width="1400" height="787"><figcaption class="pcap">The same day, timed three ways. The shaded band is when each type should do the hard thing.</figcaption></figure>
+    <figure style="margin:0"><img class="plate" src="img/chrono.webp" alt="Watercolor of three energy curves across one day: an ochre curve peaking in the morning, a green curve with two peaks, and a blue curve rising to an evening peak, with a sun on the left and a crescent moon on the right." width="1400" height="700"><figcaption class="pcap">Three types, one day: morning peak, two peaks, evening peak.</figcaption></figure>
     <div class="tight">
-      <p class="kicker" style="color:var(--leaf)">9 · The when: your chronotype</p>
+      <p class="kicker" style="color:var(--leaf)">9 · Your chronotype</p>
       <p>Your attention span is not constant. You are a different version of yourself at 8 a.m., 2 p.m. and 8 p.m. Yousef describes three chronotypes, with the population shares she cites.</p>
       <p>Both Steven and Yousef are night owls. When she mentioned that PM-shifted people tend to be the most artistic and creative, Steven grinned: “Look at the camera and say that again.” He never records before 11 a.m. He once took a key meeting at 7 a.m. and called his own performance terrible.</p>
     </div>
@@ -962,10 +973,11 @@ $$('[data-scrolly]').forEach(sc=>{const id=sc.dataset.scrolly;const steps=[...sc
     $('#st-result').classList.add('on');requestAnimationFrame(()=>{$('#st-b1').style.width=(100*a/m)+'%';$('#st-b2').style.width=(100*b/m)+'%'});
     const pct=Math.round((b/a-1)*100);
     $('#st-verdict').innerHTML=pct>0?`Switching made you <strong>${pct}% slower</strong> on the same 20 taps. Notice the moments you had to ask yourself “where was I?” That pause is attentional residue.`:`You matched or beat your focused time. Most people slow down a lot; Steven lost about 60%. Try it with the phone buzzing next to you.`}
+  const SHARE_ART=new Image();SHARE_ART.src='img/hero_share.webp';
   $('#st-save').addEventListener('click',()=>{const[a,b]=times;if(!a||!b)return;const c=document.createElement('canvas');c.width=1080;c.height=1080;const x=c.getContext('2d');
-    x.fillStyle='#F3F4EF';x.fillRect(0,0,1080,1080);x.fillStyle='#1A2030';x.font='italic 34px "Instrument Serif", Georgia, serif';x.fillText('My switch cost',80,130);
-    const pct=Math.round((b/a-1)*100);x.font='120px "Instrument Serif", Georgia, serif';x.fillStyle='#C23F57';x.fillText(pct>0?pct+'% slower':'No slowdown',80,290);
-    x.fillStyle='#3A4152';x.font='34px Georgia, serif';x.fillText('when I switched between two easy tasks',80,350);
+    x.fillStyle='#F3F4EF';x.fillRect(0,0,1080,1080);x.fillStyle='#1A2030';const pct=Math.round((b/a-1)*100);const hi=SHARE_ART;try{if(hi.complete&&hi.naturalWidth){x.globalAlpha=.3;x.drawImage(hi,540,540,520,520*hi.naturalHeight/hi.naturalWidth);x.globalAlpha=1}}catch(e){}
+    x.fillStyle='#1A2030';x.font='italic 34px "Instrument Serif", Georgia, serif';x.fillText('The Attention Leak',80,130);x.font='96px "Instrument Serif", Georgia, serif';x.fillStyle='#C23F57';x.fillText(pct>0?'I was '+pct+'% slower.':'No slowdown.',80,270);x.fillStyle='#1A2030';x.fillText('Are you?',80,370);
+    x.fillStyle='#3A4152';x.font='30px Georgia, serif';x.fillText('Switching between two easy tasks',80,420);
     const m=Math.max(a,b),W=760;[[a,'One at a time','#34509A'],[b,'Switching','#C23F57']].forEach(([t,l,col],i)=>{const y=470+i*130;x.fillStyle='#3A4152';x.font='28px Georgia, serif';x.fillText(l+' · '+t.toFixed(1)+' s',80,y);x.fillStyle='#E3E5DD';x.fillRect(80,y+20,W,40);x.fillStyle=col;x.fillRect(80,y+20,W*t/m,40)});
     x.fillStyle='#3A4152';x.font='30px Georgia, serif';x.fillText('Steven Bartlett on the show: about 60% slower.',80,820);
     x.fillStyle='#646B7A';x.font='26px Georgia, serif';x.fillText('Try it: jptramos.github.io/attention-leak',80,960);x.fillText('After Dr. Sahar Yousef on The Diary of a CEO',80,1000);
